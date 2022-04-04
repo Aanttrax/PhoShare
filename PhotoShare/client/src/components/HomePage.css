@@ -1,0 +1,46 @@
+.btn {
+    color: white;
+    background-color: #bb0808;
+    font-weight: 600;
+    width: 150px;
+    padding: 6px;
+}
+
+.select {
+    background-color: #bb0808;
+    font-weight: 600;
+}
+
+.search {
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+    width: 400px;
+    padding-left: 30px;
+}
+
+.principal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-top: 20px;
+
+}
+
+.user{
+    display: flex;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.home{
+    background-color: black;
+    height: 100vh;
+}
