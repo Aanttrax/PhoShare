@@ -1,6 +1,7 @@
 import React from "react";
 import user from '../img/user.png';
 import alert from '../img/alert.png';
+import imagen from '../img/imagen.png';
 import './HomePage.css'
 
 
@@ -27,15 +28,19 @@ function HomePage() {
                     <option value='Edit'>Editar perfil</option>
                 
                 </select>
-                <div>
-                    {Array.isArray(btn) && btn.map((c,i)=>(
-                        <button 
-                            key ={i}
-                            className = 'btn'>
-                            {c}
-                        </button>
-                    ))}
-                </div>
+            </div>
+            <div className="container">
+                {Array.isArray(btn) && btn.map((c,i)=>(
+                    <div className="card" key ={i}>
+                        <p className="title">{c}</p>
+                        <div className="ima">
+                            <img src={imagen} 
+                                alt = 'imagen'
+                                className = 'img' 
+                            />
+                        </div>
+                    </div>
+                ))}
             </div>
                 
         </div>
