@@ -20,7 +20,7 @@ function HomePage() {
                     <input className="search" type= 'text' name='buscar' placeholder="Buscar">
                     </input>
                 </div>
-                <img src = {alert} alt='user' width="70" height="60"/>
+                <img src = {alert} alt='user' width="50" height="50"/>
             </div>
             <div className="menu">
                 <select className="select">
