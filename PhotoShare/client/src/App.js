@@ -5,6 +5,8 @@ import Register from "./components/Register.js";
 import Recovery from "./components/Recovery.js";
 import HomePage from './components/HomePage.js';
 
+import Edit from "./components/Edit.js";
+
 import './App.css';
 
 function App() {
@@ -17,6 +19,9 @@ function App() {
         <Route exact path = "/register" element = {<Register/>}/>
         <Route exact path = "/recovery" element = {<Recovery/>}/>
         <Route exact path = "/home" element = {<HomePage/>}/>
+
+        <Route exact path = "/edit" element = {<Edit/>}/>
+
       </Routes>
     </div>
   );
