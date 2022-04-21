@@ -1,4 +1,10 @@
 import { Routes, Route } from "react-router";
+import { Navigate } from "react-router-dom";
+import { useState } from "react";
+//firebase
+import firebaseApp from "./firebase/credenciales.js";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+//Componentes
 import Splash from "./components/Splash.js";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
@@ -8,16 +14,30 @@ import Edit from "./components/Edit.js";
 
 import './App.css';
 
+const auth = getAuth(firebaseApp);
+
 function App() {
+
+  const [user, setUser] = useState(null);
+
+  onAuthStateChanged(auth, (userFirebase) => {
+    if(userFirebase) {
+      setUser(userFirebase)
+    }else {
+      setUser(null)
+    }
+  })
 
   return (
     <div>
       <Routes>
-        <Route exact path = "/" element ={<Splash/>}/>
-        <Route exact path = "/login" element = {<Login/>}/>
+        <Route 
+          exact path = "/" 
+          element ={user? <Navigate to="/home" /> : <Navigate to="/login" />}/>
+        <Route exact path = "/home" element = {<HomePage/>}/>
         <Route exact path = "/register" element = {<Register/>}/>
         <Route exact path = "/recovery" element = {<Recovery/>}/>
-        <Route exact path = "/home" element = {<HomePage/>}/>
+        <Route exact path = "/login" element = {<Login/>}/>
         <Route exact path = "/edit" element = {<Edit/>}/>
 
       </Routes>
