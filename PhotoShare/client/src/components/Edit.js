@@ -16,7 +16,7 @@ function Edit() {
                     <input type = 'text' placeholder="Enter New Username"/>
 
                     <label htmlFor = 'password'>New Password</label>
-                    <input type = 'text' placeholder="Enter New Password"/>
+                    <input type = 'password' placeholder="Enter New Password"/>
 
                     <label htmlFor = 'imgPerfil'>Cambiar foto de Perfil</label>
                     <p>
