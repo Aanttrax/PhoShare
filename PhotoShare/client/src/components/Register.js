@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import firebaseApp from "../firebase/credenciales";
@@ -16,6 +16,14 @@ const firestore = getFirestore(firebaseApp);
 function Register() {
 
     const navigate = useNavigate();
+
+    const [mail,setMail]= useState('');
+    const [message, setMessage]= useState('');
+
+    const [pas,setPas] = useState('');
+    const [messagePas,setMessagePas] = useState('');
+
+    const [equalityMenssage, setEqualityMenssage] = useState('');
 
     async function registerUser(email, password,username,sex,age) {
         const infoUser = await createUserWithEmailAndPassword(auth,email,password).then((userFirebase) => {
@@ -49,6 +57,48 @@ function Register() {
 
     };
 
+    function validarEmail( email ) {
+        let expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if ( !expr.test(email) ){
+            setMessage (`La dirección de correo es incorrecta.`);  
+        } else {
+            setMessage (``); 
+        }
+    };
+
+    function validarPass(pas) {
+        console.log(pas.length)
+        if(pas.length <5) {
+            setMessagePas (`El password tiene que tener como minnimo 6 caracteres`);  
+        } else {
+            setMessagePas ('');
+        }
+    };
+
+    function validarEquality(equality) {
+        if(pas !== equality){
+            setEqualityMenssage('El Password no coincide')
+            console.log(pas, equality)
+        } else {
+            setEqualityMenssage('')
+            console.log(pas, equality)
+        }
+    }
+
+    function validate(e) {
+        setMail(e.target.value)
+        validarEmail(mail);
+    };
+
+    function verify(e) {
+        setPas(e.target.value);
+        validarPass(pas);
+    };
+
+    function equal(e) {
+        validarEquality(e.target.value);
+    };
+
     return (
         <div className="body">
             <div className="register-box">
@@ -56,22 +106,42 @@ function Register() {
                 <h2>Register!</h2>
                 <form onSubmit={submitHandler}>
                     <label htmlFor = 'username'>Username</label>
-                    <input id = 'username' type = 'text' placeholder="Enter Username"/>
+                    <input 
+                        id = 'username' 
+                        type = 'text' 
+                        placeholder="Enter Username"/>
 
                     <label htmlFor = 'email'>Email</label>
-                    <input id = 'email'type = 'text' placeholder="Enter email"/>
-
+                    <input 
+                        id = 'email'
+                        type = 'text' 
+                        placeholder="Enter email"
+                        onChange={validate}/>
+                    <span className="alert">{message}</span>
                     <label htmlFor = 'password'>Password</label>
-                    <input type = 'password' placeholder="Enter Password"/>
-
+                    <input 
+                        type = 'password' 
+                        placeholder="Enter Password"
+                        onChange={verify}/>
+                    <span className="alert">{messagePas}</span>
                     <label htmlFor = 'confirm-password'>Confirm Password</label>
-                    <input id = 'password' type = 'password' placeholder="Re-Enter Password"/>
-
+                    <input 
+                        id = 'password' 
+                        type = 'password'  
+                        placeholder="Re-Enter Password"
+                        onChange={equal}/>
+                    <span className="alert">{equalityMenssage}</span>
                     <label htmlFor = 'sex'>Sex</label>
-                    <input id = 'sex' type = 'text' placeholder="Enter Sex"/>
+                    <input 
+                        id = 'sex' 
+                        type = 'text' 
+                        placeholder="Enter Sex"/>
 
                     <label htmlFor = 'age'>Age</label>
-                    <input id = 'age' type = 'text' placeholder="Enter Age"/>
+                    <input 
+                        id = 'age' 
+                        type = 'text' 
+                        placeholder="Enter Age"/>
 
                     <input type = 'submit' value='Register'/>
 

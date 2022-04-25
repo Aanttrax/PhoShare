@@ -78,3 +78,7 @@
 .login-box .a:hover {
     color: #fff;
 }
+
+.alert {
+    color: red;
+}

@@ -42,9 +42,6 @@ function Edit() {
                       <input type = 'submit' value='cerrar sesion'/>
                     </Link>
                     
-
-                    
-                    
                     <input type = 'submit' value='Aplicar'/>
                 </form>
             </div>
