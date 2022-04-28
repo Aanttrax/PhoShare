@@ -10,6 +10,15 @@
     padding: 70px 30px;
 }
 
+.edit-box .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #bb0808;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+}
 .edit-box h2 {
     margin: 0;
     padding: 0 0 20px;
@@ -31,16 +40,18 @@
 
 .T{
     display: flex;
-    width: 23%;
-    text-align: center;
-}
-
-.T1{
-    background-color: #bb0808;
-    border-radius: 20px;
     width: 100%;
+    text-align: center;
+    height: 50px;
+    justify-content: center;
+    
 }
-
+.se{
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+}
 .edit-box input[type='text'],
 .edit-box input[type='password'] {
     border: none;
@@ -59,15 +70,15 @@
     background: #bb0808;
     font-size: 18px;
     border-radius: 20px;
+    margin-top: 20px;
 }
 
-.edit-box .a {
-    text-decoration: none;
-    font-size: 12px;
-    line-height: 20px;
-    color: darkgray;
-}
-
-.edit-box .a:hover {
-    color: #fff;
+.edit-box input[type='button']{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #bb0808;
+    font-size: 18px;
+    border-radius: 20px;
+    margin-top: 10px;
 }

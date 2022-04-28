@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import user from '../img/user.png';
+import userimagen from '../img/user.png';
 
 import firebaseApp from "../firebase/credenciales";
 import { getAuth, signOut } from "firebase/auth"
@@ -11,9 +11,9 @@ import './HomePage.css'
 
 const auth = getAuth(firebaseApp)
 
-function HomePage() {
+function HomePage(user) {
 
-    let btn = ['categoria1', 'categoria2', 'categoria3', 'categoria4', 'categoria5', 'categoria6' ];
+    let btn = ['Deportes', 'Paisajes', 'Comida', 'Video Juegos', 'Autos & Motos', 'Otros' ];
 
     const navigate = useNavigate();
 
@@ -24,14 +24,18 @@ function HomePage() {
 
         console.log(sing);
     };
+console.log(user.username)
 
+    function edit(){
+        navigate('/edit')
+    }
     return (
 
         
         <div className="home">
             <div className="principal">
                 <div className="user">
-                    <img src = {user} alt='user' width="50" height="50"/>
+                    <img src = {userimagen} alt='user' width="50" height="50"/>
                     <p>Nombre de Usuario</p>
                 </div>
                 <div>
@@ -43,7 +47,11 @@ function HomePage() {
             <div className="menu">
                 <select className="select">
                     <option value=''>Opciones</option>
-                    <option value='Edit'>Editar perfil</option>
+                    <option 
+                        value='Edit'
+                        onClick={edit}>
+                            Editar perfil
+                    </option>
                     <option value='log out' 
                         onClick={logOut}>
                                 Cerrar Sesion

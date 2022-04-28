@@ -34,7 +34,7 @@ function App() {
         <Route 
           exact path = "/" 
           element ={user? <Navigate to="/home" /> : <Navigate to="/login" />}/>
-        <Route exact path = "/home" element = {<HomePage/>}/>
+        <Route exact path = "/home" element = {<HomePage user ={user}/>}/>
         <Route exact path = "/register" element = {<Register/>}/>
         <Route exact path = "/recovery" element = {<Recovery/>}/>
         <Route exact path = "/login" element = {<Login/>}/>
