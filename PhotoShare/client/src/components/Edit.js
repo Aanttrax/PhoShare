@@ -33,11 +33,11 @@ function Edit() {
 
                     <div className='T'>
                         <div className="se">
-                            <input type = 'radio'  name='Public'checked/>
+                            <input type = 'radio'  name='tipo' checked/>
                             <label>Public</label>
                         </div>
                         <div className="se">
-                            <input type = 'radio' name='Privado'/>
+                            <input type = 'radio' name='tipo'/>
                             <label>Privado</label>
                         </div>
                     </div>

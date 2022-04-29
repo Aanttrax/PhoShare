@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 import userimagen from '../img/user.png';
 
 import firebaseApp from "../firebase/credenciales";
@@ -7,24 +8,51 @@ import { getAuth, signOut } from "firebase/auth"
 
 import alert from '../img/alert.png';
 import imagen from '../img/imagen.png';
+import deportes from '../img/depo.jpg';
+import paisajes from '../img/pai.jpg';
+import comida from '../img/comi.jpg';
+import games from '../img/game.jpg';
+import autoMoto from '../img/aut.jpg';
+import otros from '../img/otr.jpg';
 import './HomePage.css'
+import { getStart } from "../actions/actions";
 
 const auth = getAuth(firebaseApp)
 
-function HomePage(user) {
 
-    let btn = ['Deportes', 'Paisajes', 'Comida', 'Video Juegos', 'Autos & Motos', 'Otros' ];
+function HomePage({user}) {
+    
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(getStart())
+    },[dispatch])
+
+    let usuariosbd = useSelector(state => state.users);
+    console.log(usuariosbd)
+
+    let btn = [{name : 'Deportes', 
+               img : `${deportes}`}, 
+               {name : 'Paisajes', 
+               img : `${paisajes}`}, 
+               {name : 'Comida', 
+               img : `${comida}`},
+               {name : 'Video Juegos', 
+               img : `${games}`},
+               {name : 'Autos & Motos', 
+               img : `${autoMoto}`},
+               {name : 'Otros', 
+                img : `${otros}`}];
 
     const navigate = useNavigate();
 
     async function logOut(){
         const sing = await signOut(auth)
-
+        console.log(sing)
         navigate('/');
 
-        console.log(sing);
     };
-console.log(user.username)
+
 
     function edit(){
         navigate('/edit')
@@ -36,7 +64,7 @@ console.log(user.username)
             <div className="principal">
                 <div className="user">
                     <img src = {userimagen} alt='user' width="50" height="50"/>
-                    <p>Nombre de Usuario</p>
+                    <p>{user.email}</p>
                 </div>
                 <div>
                     <input className="search" type= 'text' name='buscar' placeholder="Buscar">
@@ -61,17 +89,17 @@ console.log(user.username)
             <div className="container">
                 {Array.isArray(btn) && btn.map((c,i)=>(
                     <div className="card" key ={i}>
-                        <p className="title">{c}</p>
+                        <p className="title">{c.name}</p>
                         <div className="ima">
-                            <img src={imagen} 
+                            <img 
+                                src={c.img} 
                                 alt = 'imagen'
                                 className = 'img' 
                             />
                         </div>
                     </div>
                 ))}
-            </div>
-                
+            </div>       
         </div>
     )
 };

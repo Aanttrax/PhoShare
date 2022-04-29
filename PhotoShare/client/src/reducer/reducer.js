@@ -4,11 +4,12 @@ let initialState = {
 
 const todos = (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_PAGE':
+
+        case 'GET_START':
             return {
                 ...state,
-                usersPage: action.payload
-            }
+                users: action.payload
+            }  
 
         default:
             return state

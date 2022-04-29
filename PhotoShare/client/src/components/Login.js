@@ -20,7 +20,7 @@ function Login() {
     async function logIn(email,password){
         const sing = await signInWithEmailAndPassword(auth, email,password);
         navigate('/');
-        console.log(sing)
+        console.log(sing,'aqui')
     };
 
     function submitHandler(e) {
