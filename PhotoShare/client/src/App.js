@@ -11,6 +11,7 @@ import Register from "./components/Register.js";
 import Recovery from "./components/Recovery.js";
 import HomePage from './components/HomePage.js';
 import Edit from "./components/Edit.js";
+import Perfil from "./components/Perfil.js";
 
 import './App.css';
 
@@ -39,6 +40,7 @@ function App() {
         <Route exact path = "/recovery" element = {<Recovery/>}/>
         <Route exact path = "/login" element = {<Login/>}/>
         <Route exact path = "/edit" element = {<Edit/>}/>
+        <Route exact path = "/perfil" element = {<Perfil/>}/>
 
       </Routes>
     </div>

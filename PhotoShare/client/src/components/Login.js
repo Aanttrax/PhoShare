@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getUser } from "../actions/actions";
 
 import firebaseApp from "../firebase/credenciales";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -17,10 +19,13 @@ function Login() {
     const[mail,setMail]=useState('');
     const [message, setMessage]=useState('');
 
+    const dispatch = useDispatch();
+
     async function logIn(email,password){
         const sing = await signInWithEmailAndPassword(auth, email,password);
         navigate('/');
-        console.log(sing,'aqui')
+        dispatch(getUser(sing))
+
     };
 
     function submitHandler(e) {

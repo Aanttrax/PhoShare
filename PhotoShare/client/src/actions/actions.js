@@ -4,6 +4,7 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore';
 const db = getFirestore(firebaseApp);
 
 const GET_START = 'GET_START';
+const GET_USER = 'GET_USER';
 
 const getStart = ()=> {
 
@@ -21,4 +22,14 @@ const getStart = ()=> {
     }
 };
 
-export {getStart};
+const getUser = (sing) => {
+
+    return async(dispatch) => {
+
+        dispatch({type: GET_USER, payload: sing})
+
+
+    }
+}
+
+export {getStart, getUser};

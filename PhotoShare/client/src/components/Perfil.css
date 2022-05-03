@@ -1,0 +1,51 @@
+.body_perfil {
+    background-color: black;
+    height: 100vh;
+}
+
+.perfil {
+    background-color: rgb(246, 179, 97);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px ;
+    height: 200px;
+    align-items: flex-end;
+}
+
+.data_perfil {
+    display: flex;
+    align-items: center;
+    height: 150px;
+    transform: translateY(50%);
+}
+
+.data_perfil div p {
+    
+    font-weight: 800;
+    font-size: 60px;
+}
+
+.data_perfil .status_perfil {
+    font-size: x-large;
+    margin: 0px;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+.img_perfil {
+    margin-right: 20px;
+    margin-left: 20px;
+    height: 50px;
+    width: 50px;
+}
+
+.btn_perfil {
+    display: flex;
+    margin-bottom: -100px;
+    text-align: center;
+    align-items: center;
+}
+
+.btn_perfil p {
+    margin-top: 0px;
+}

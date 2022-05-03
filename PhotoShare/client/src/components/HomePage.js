@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import userimagen from '../img/user.png';
 
 import firebaseApp from "../firebase/credenciales";
 import { getAuth, signOut } from "firebase/auth"
 
 import alert from '../img/alert.png';
-import imagen from '../img/imagen.png';
+
 import deportes from '../img/depo.jpg';
 import paisajes from '../img/pai.jpg';
 import comida from '../img/comi.jpg';
@@ -19,7 +19,6 @@ import { getStart } from "../actions/actions";
 
 const auth = getAuth(firebaseApp)
 
-
 function HomePage({user}) {
     
     const dispatch = useDispatch();
@@ -27,9 +26,6 @@ function HomePage({user}) {
     useEffect(()=>{
         dispatch(getStart())
     },[dispatch])
-
-    let usuariosbd = useSelector(state => state.users);
-    console.log(usuariosbd)
 
     let btn = [{name : 'Deportes', 
                img : `${deportes}`}, 
@@ -57,12 +53,18 @@ function HomePage({user}) {
     function edit(){
         navigate('/edit')
     }
+
+    function perfil(){
+        navigate('/perfil')
+    }
     return (
 
         
         <div className="home">
             <div className="principal">
-                <div className="user">
+                <div 
+                    onClick={perfil}
+                    className="user">
                     <img src = {userimagen} alt='user' width="50" height="50"/>
                     <p>{user.email}</p>
                 </div>
@@ -86,6 +88,7 @@ function HomePage({user}) {
                     </option>
                 </select>
             </div>
+            
             <div className="container">
                 {Array.isArray(btn) && btn.map((c,i)=>(
                     <div className="card" key ={i}>
