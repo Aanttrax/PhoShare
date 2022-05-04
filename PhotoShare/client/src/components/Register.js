@@ -37,9 +37,10 @@ function Register() {
             password: password,
             username:username,
             sex:sex,
-            age:age
+            age:age,
+            tipo:'Public'
         });
-        console.log(infoUser)
+
     };
 
     function submitHandler(e) {
