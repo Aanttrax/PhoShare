@@ -38,7 +38,9 @@ function Register() {
             username:username,
             sex:sex,
             age:age,
-            tipo:'Public'
+            tipo:'Public',
+            imgPerfil:'',
+            imgPortal:''
         });
 
     };
