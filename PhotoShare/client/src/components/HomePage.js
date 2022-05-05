@@ -23,12 +23,20 @@ const auth = getAuth(firebaseApp)
 function HomePage({user}) {
     
     
+
     const dispatch = useDispatch();
 
+    let userbd = useSelector(state => state.user);
+    let usersbd = useSelector(state => state.users);
+    
+    const usuario_perfil = usersbd.find(element => element.email === userbd.user.email);
+    
     useEffect(()=>{
         dispatch(getStart())
     },[dispatch])
-
+    
+    
+    
     let btn = [{name : 'Deportes', 
                img : `${deportes}`}, 
                {name : 'Paisajes', 
@@ -44,10 +52,7 @@ function HomePage({user}) {
 
     const navigate = useNavigate();
 
-    let userbd = useSelector(state => state.user);
-    let usersbd = useSelector(state => state.users);
     
-    const usuario_perfil = usersbd.find(element => element.email === userbd.user.email);
 
 
     async function logOut(){
@@ -154,7 +159,7 @@ function HomePage({user}) {
                         <div className="mienbros" key ={i}>
                             {exist(c.username)?
                             <>
-                            <div className="usuario_result">
+                            <div className="usuario_result" key={c.username}>
                                 <img src={c.imgPerfil} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
                                 <p>{c.username}</p>
                             </div>

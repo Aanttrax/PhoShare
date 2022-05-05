@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getUser } from "../actions/actions";
+import { getStart, getUser } from "../actions/actions";
 
 import firebaseApp from "../firebase/credenciales";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -14,6 +14,7 @@ const auth = getAuth(firebaseApp);
 
 function Login() {
 
+
     const navigate = useNavigate();
 
     const[mail,setMail]=useState('');
@@ -23,8 +24,8 @@ function Login() {
 
     async function logIn(email,password){
         const sing = await signInWithEmailAndPassword(auth, email,password);
-        navigate('/');
         dispatch(getUser(sing))
+        navigate('/');
 
     };
 
@@ -51,6 +52,11 @@ function Login() {
         setMail(e.target.value)
         validarEmail(mail);
     };
+
+    useEffect(()=>{
+        dispatch(getStart())
+    },[dispatch])
+
 
     return(
         <div className="body">
