@@ -1,6 +1,6 @@
 .edit-box{
-    width:600px;
-    height: 700px;
+    width:400px;
+    height: 750px;
     background-color: #191919;
     top: 50%;
     left: 50%;
@@ -70,7 +70,7 @@
     background: #bb0808;
     font-size: 18px;
     border-radius: 20px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .edit-box input[type='button']{

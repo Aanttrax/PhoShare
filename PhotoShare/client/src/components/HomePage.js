@@ -7,7 +7,7 @@ import firebaseApp from "../firebase/credenciales";
 import { getAuth, signOut } from "firebase/auth"
 
 import alert from '../img/alert.png';
-import imagen from '../img/imagen.png';
+
 import deportes from '../img/depo.jpg';
 import paisajes from '../img/pai.jpg';
 import comida from '../img/comi.jpg';
@@ -20,17 +20,14 @@ import { click } from "@testing-library/user-event/dist/click";
 
 const auth = getAuth(firebaseApp)
 
-
 function HomePage({user}) {
+    
     
     const dispatch = useDispatch();
 
     useEffect(()=>{
         dispatch(getStart())
     },[dispatch])
-
-    let usuariosbd = useSelector(state => state.users);
-    console.log(usuariosbd)
 
     let btn = [{name : 'Deportes', 
                img : `${deportes}`}, 
@@ -48,6 +45,12 @@ function HomePage({user}) {
 
     const navigate = useNavigate();
 
+    let userbd = useSelector(state => state.user);
+    let usersbd = useSelector(state => state.users);
+    
+    const usuario_perfil = usersbd.find(element => element.email === userbd.user.email);
+
+
     async function logOut(){
         const sing = await signOut(auth)
         console.log(sing)
@@ -58,6 +61,7 @@ function HomePage({user}) {
     function edit(){
         navigate('/edit')
     }
+
 
     const [visible , setVisible] = useState(true);
     const [letra , setLetra] = useState("");
@@ -81,14 +85,23 @@ function HomePage({user}) {
         return d.includes(letra);
     }
 
+
+    function perfil(){
+        navigate('/perfil')
+    }
+
     return (
 
         
         <div className="home">
             <div className="principal">
-                <div className="user">
-                    <img src = {userimagen} alt='user' width="50" height="50"/>
-                    <p>{user.email}</p>
+                <div 
+                    onClick={perfil}
+                    className="user">
+                    <img 
+                        src = {usuario_perfil.imgPerfil?usuario_perfil.imgPerfil:userimagen} 
+                        alt='user' width="50" height="50"/>
+                    <p>{usuario_perfil.username}</p>
                 </div>
 
                 <div>
@@ -119,6 +132,7 @@ function HomePage({user}) {
             </div>
 
             {visible? 
+
             <div className="container">
                 {Array.isArray(btn) && btn.map((c,i)=>(
                     <div className="card" key ={i}>

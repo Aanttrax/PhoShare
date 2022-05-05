@@ -1,5 +1,6 @@
 let initialState = {
-    users: []
+    users: [],
+    user:[]
 };
 
 const todos = (state = initialState, action) => {
@@ -10,6 +11,12 @@ const todos = (state = initialState, action) => {
                 ...state,
                 users: action.payload
             }  
+
+        case 'GET_USER':
+            return {
+                ...state,
+                user: action.payload
+            }
 
         default:
             return state

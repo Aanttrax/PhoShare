@@ -37,9 +37,12 @@ function Register() {
             password: password,
             username:username,
             sex:sex,
-            age:age
+            age:age,
+            tipo:'Public',
+            imgPerfil:'',
+            imgPortal:''
         });
-        console.log(infoUser)
+
     };
 
     function submitHandler(e) {
