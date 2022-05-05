@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import userimagen from '../img/user.png';
@@ -16,6 +16,7 @@ import autoMoto from '../img/aut.jpg';
 import otros from '../img/otr.jpg';
 import './HomePage.css'
 import { getStart } from "../actions/actions";
+
 
 const auth = getAuth(firebaseApp)
 
@@ -64,6 +65,26 @@ function HomePage({user}) {
     function perfil(){
         navigate('/perfil')
     }
+
+    const [visible , setVisible] = useState(true);
+    const [letra , setLetra] = useState("");
+    
+
+    const escribi = (e) => {
+        setLetra(e.target.value);
+        if(e.target.value === ''){
+            setVisible(true);
+        }else if(letra.length >= 0 && letra.length !== 1){
+            setVisible(false);
+        }
+    }
+
+
+    function exist(d){
+        return d.includes(letra);
+    }
+
+
     return (
 
         
@@ -73,13 +94,22 @@ function HomePage({user}) {
                     onClick={perfil}
                     className="user">
                     <img 
-                        src = {usuario_perfil.imgPerfil?usuario_perfil.imgPerfil:userimagen} 
+                        src = {
+                            usuario_perfil.imgPerfil?usuario_perfil.imgPerfil:
+                            userimagen} 
                         alt='user' width="50" height="50"/>
-                    <p>{usuario_perfil.username}</p>
+                    <p>
+                        {usuario_perfil.username}
+                    </p>
                 </div>
                 <div>
-                    <input className="search" type= 'text' name='buscar' placeholder="Buscar">
+                    <input className="search" 
+                            type= 'text' 
+                            name='buscar' 
+                            placeholder="Buscar" 
+                            onChange={escribi}>
                     </input>
+                    
                 </div>
                 <img src = {alert} alt='user' width="50" height="50"/>
             </div>
@@ -98,6 +128,8 @@ function HomePage({user}) {
                 </select>
             </div>
             
+            {visible?
+
             <div className="container">
                 {Array.isArray(btn) && btn.map((c,i)=>(
                     <div className="card" key ={i}>
@@ -111,7 +143,31 @@ function HomePage({user}) {
                         </div>
                     </div>
                 ))}
-            </div>       
+            </div>
+            : ""}
+
+            {visible === false? 
+                <div className="container_search">
+                    {Array.isArray(usersbd) && usersbd.map((c,i)=>(
+                        
+                        
+                        <div className="mienbros" key ={i}>
+                            {exist(c.username)?
+                            <>
+                            <div className="usuario_result">
+                                <img src={c.imgPerfil} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
+                                <p>{c.username}</p>
+                            </div>
+                            <button className="seguir">seguir</button> 
+                            </>
+                            : ""}
+                        </div>
+                        
+                        
+                    ))}
+                </div>  
+            : ""}
+
         </div>
     )
 };

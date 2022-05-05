@@ -30,7 +30,7 @@
 
 .user p {
     margin-left: 20px;
-    font-size: larger;
+    font-size: x-large;
 }
 
 .menu{
@@ -85,5 +85,35 @@
     text-align: center;
     padding-top: 15px;
     padding-bottom: 15px;
+    border-radius: 10px;
+}
+
+.container_search {
+    margin-top: 50px;
+}
+
+.mienbros {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    
+}
+.usuario_result{
+    display: flex;
+    font-size: 20px;
+    margin-left: 20px;
+    
+}
+
+.usuario_result p {
+    margin-left: 30px;
+}
+
+.seguir{
+    font-size: 20px;
+    background-color: #bb0808;
+    padding-left: 40px;
+    padding-right: 40px;
     border-radius: 10px;
 }
