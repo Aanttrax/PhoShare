@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import userimagen from '../img/user.png';
@@ -16,6 +16,7 @@ import autoMoto from '../img/aut.jpg';
 import otros from '../img/otr.jpg';
 import './HomePage.css'
 import { getStart } from "../actions/actions";
+import { click } from "@testing-library/user-event/dist/click";
 
 const auth = getAuth(firebaseApp)
 
@@ -41,6 +42,7 @@ function HomePage({user}) {
                {name : 'Otros', 
                 img : `${otros}`}];
 
+
     const navigate = useNavigate();
 
     let userbd = useSelector(state => state.user);
@@ -56,14 +58,38 @@ function HomePage({user}) {
 
     };
 
-
     function edit(){
         navigate('/edit')
     }
 
+
+    const [visible , setVisible] = useState(true);
+    const [letra , setLetra] = useState("");
+    
+
+    const escribi = (event) => {
+        setLetra(event.target.value);
+        console.log(exist("abc"));
+        if(letra.length === 1){
+            setVisible(true);
+        }else if(letra.length >= 0 && letra.length !== 1){
+            setVisible(false);
+        }
+    }
+
+    const [filtro, setFiltro] = useState(false);
+
+    function exist(d){
+        console.log(letra);
+        console.log(d.includes(letra));
+        return d.includes(letra);
+    }
+
+
     function perfil(){
         navigate('/perfil')
     }
+
     return (
 
         
@@ -77,11 +103,18 @@ function HomePage({user}) {
                         alt='user' width="50" height="50"/>
                     <p>{usuario_perfil.username}</p>
                 </div>
+
                 <div>
-                    <input className="search" type= 'text' name='buscar' placeholder="Buscar">
+                    <input className="search" 
+                            type= 'text' 
+                            name='buscar' 
+                            placeholder="Buscar" 
+                            onChange={escribi}>
                     </input>
                 </div>
+                
                 <img src = {alert} alt='user' width="50" height="50"/>
+
             </div>
             <div className="menu">
                 <select className="select">
@@ -97,7 +130,9 @@ function HomePage({user}) {
                     </option>
                 </select>
             </div>
-            
+
+            {visible? 
+
             <div className="container">
                 {Array.isArray(btn) && btn.map((c,i)=>(
                     <div className="card" key ={i}>
@@ -111,7 +146,33 @@ function HomePage({user}) {
                         </div>
                     </div>
                 ))}
-            </div>       
+            </div>  
+            : ""}
+
+            {visible == false? 
+                <div className="container_search">
+                    {Array.isArray(usuariosbd) && usuariosbd.map((c,i)=>(
+                        
+                        
+                        <div className="mienbros" key ={i}>
+                            {exist(c.username)?
+                            <React.Fragment>
+                            <img src={c.imgPerfil} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
+                            <p className="usuario">{c.username}</p>
+                            <button className="seguir">seguir</button>
+                            <hr/> 
+                            </React.Fragment>
+                            : ""}
+                        </div>
+                        
+                        
+                    ))}
+                </div>  
+            : ""}
+
+        
+
+            
         </div>
     )
 };
