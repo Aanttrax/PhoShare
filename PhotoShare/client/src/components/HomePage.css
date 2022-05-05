@@ -87,29 +87,3 @@
     padding-bottom: 15px;
     border-radius: 10px;
 }
-
-.container_search{
-    background-color: black;
-}
-
-.mienbros{
-    background-color: black;
-}
-.usuario{
-    font-size: 30px;
-    margin-left: 20px;
-    background-color: black;
-    display : inline-block;
-}
-
-.seguir{
-    font-size: 30px;
-    float: right;
-    margin-right: 20px;
-    background-color: #bb0808;
-}
-
-.imgUser{
-    margin-left: 20px;
-    
-}
