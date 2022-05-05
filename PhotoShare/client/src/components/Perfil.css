@@ -22,11 +22,15 @@
 .data_perfil div p {
     
     font-weight: 800;
-    font-size: 60px;
+    font-size: xx-large;
+}
+
+.data_perfil div span {
+    font-size: larger;
 }
 
 .data_perfil .status_perfil {
-    font-size: x-large;
+    
     margin: 0px;
     padding-right: 50px;
     padding-left: 50px;

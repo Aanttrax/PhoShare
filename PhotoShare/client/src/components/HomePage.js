@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import userimagen from '../img/user.png';
 
 import firebaseApp from "../firebase/credenciales";
@@ -20,6 +20,7 @@ import { getStart } from "../actions/actions";
 const auth = getAuth(firebaseApp)
 
 function HomePage({user}) {
+    
     
     const dispatch = useDispatch();
 
@@ -41,6 +42,12 @@ function HomePage({user}) {
                 img : `${otros}`}];
 
     const navigate = useNavigate();
+
+    let userbd = useSelector(state => state.user);
+    let usersbd = useSelector(state => state.users);
+    
+    const usuario_perfil = usersbd.find(element => element.email === userbd.user.email);
+
 
     async function logOut(){
         const sing = await signOut(auth)
@@ -65,8 +72,10 @@ function HomePage({user}) {
                 <div 
                     onClick={perfil}
                     className="user">
-                    <img src = {userimagen} alt='user' width="50" height="50"/>
-                    <p>{user.email}</p>
+                    <img 
+                        src = {usuario_perfil.imgPerfil?usuario_perfil.imgPerfil:userimagen} 
+                        alt='user' width="50" height="50"/>
+                    <p>{usuario_perfil.username}</p>
                 </div>
                 <div>
                     <input className="search" type= 'text' name='buscar' placeholder="Buscar">

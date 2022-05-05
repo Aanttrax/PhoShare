@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from 'react-redux';
 
 import friends from '../img/Amigos.png';
 import favorites from '../img/Favorito.png';
@@ -17,13 +18,21 @@ function Perfil(){
                img : `${up}`}
                ];
 
+    let userbd = useSelector(state => state.user);
+    let usersbd = useSelector(state => state.users);
+    
+    const usuario_perfil = usersbd.find(element => element.email === userbd.user.email);
+
     return (
         <div className="body_perfil">
             <header className="perfil">
                 <div className="data_perfil">
-                    <img src = {user} alt='usuario'/>
+                    <img 
+                        src = {usuario_perfil.imgPerfil?usuario_perfil.imgPerfil:user} 
+                        alt='usuario'
+                        width="130" height="130"/>
                     <div >
-                        <p className="status_perfil">Nombre Usuario</p><br/>
+                        <p className="status_perfil">{usuario_perfil.username}</p><br/>
                         <span className="status_perfil">Seguidores</span>
                         <span className="status_perfil">Seguidos</span>    
                     </div>
