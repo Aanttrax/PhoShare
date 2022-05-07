@@ -119,7 +119,7 @@ function HomePage({user}) {
                 <img src = {alert} alt='user' width="50" height="50"/>
             </div>
             <div className="menu">
-                <select className="select">
+                <select aria-label="Opciones" className="select">
                     <option value=''>Opciones</option>
                     <option 
                         value='Edit'
