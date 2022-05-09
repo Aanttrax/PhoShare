@@ -84,13 +84,20 @@ function HomePage({user}) {
         }
     }
 
+
     function exist(d){
         return d.includes(letra);
     }
 
+    function handleSubmit(e) {
+        e.preventDefault();
+        console.log('You clicked submit.');
+      }
+
     function desplegar(){
         show !== 'true'? setShow('true'):setShow('false')
     }
+
     return (
 
         
@@ -109,12 +116,11 @@ function HomePage({user}) {
                     </p>
                 </div>
                 <div>
-                    <input  
-                        className="search" 
-                        type= 'text' 
-                        name='buscar' 
-                        placeholder="Buscar" 
-                        onChange={escribi}>
+                    <input className="search" 
+                            type= 'text' 
+                            name='buscar' 
+                            placeholder="Buscar" 
+                            onChange={escribi}>
                     </input>
                     
                 </div>
@@ -138,7 +144,7 @@ function HomePage({user}) {
                 </>
                 }  
             </div>
-            
+   
             {visible?
 
             <div className="container">
@@ -165,15 +171,21 @@ function HomePage({user}) {
                         <div className="mienbros" key ={i}>
                             {exist(c.username)?
                             <>
-                                <div className="usuario_result" key={c.username}>
-                                    <img src={c.imgPerfil} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
-                                    <p>{c.username}</p>
-                                </div>
-                                <button className="seguir">seguir</button> 
+                            <div className="usuario_result" key={c.username}>
+                                <img src={c.imgPerfil} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
+                                <p>{c.username}</p>
+
+                                
+                            </div>
+                           
+                            <button className="seguir"  >seguir</button> 
+                            
                             </>
                             : ""}
+                            
+                            
                         </div>
-                        
+                            
                         
                     ))}
                 </div>  
