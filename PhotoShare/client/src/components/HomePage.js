@@ -22,6 +22,8 @@ const auth = getAuth(firebaseApp)
 
 function HomePage({user}) {
     
+    const [show,setShow]=useState('false')
+
     const dispatch = useDispatch();
 
     let userbd = useSelector(state => state.user);
@@ -91,6 +93,11 @@ function HomePage({user}) {
         e.preventDefault();
         console.log('You clicked submit.');
       }
+
+    function desplegar(){
+        show !== 'true'? setShow('true'):setShow('false')
+    }
+
     return (
 
         
@@ -119,21 +126,25 @@ function HomePage({user}) {
                 </div>
                 <img src = {alert} alt='user' width="50" height="50"/>
             </div>
-            <div className="menu">
-                <select className="select">
-                    <option value=''>Opciones</option>
-                    <option 
-                        value='Edit'
-                        onClick={edit}>
-                            Editar perfil
-                    </option>
-                    <option value='log out' 
-                        onClick={logOut}>
-                                Cerrar Sesion
-                    </option>
-                </select>
+
+            <div className="select_menu">
+                <div className="select_btn" onClick={desplegar}>
+                    <span className="btn_text">Selecionar su opcion</span>
+                </div>
+                {show === 'true'?
+                <ul className="options">
+                    <li className="option" onClick={edit}>
+                        <span className="option_text">Editar Perfil</span>
+                    </li>
+                    <li className="option" onClick={logOut}>
+                        <span className="option_text">Cerrar Sesion</span>
+                    </li>
+                </ul>
+                :<>
+                </>
+                }  
             </div>
-            
+   
             {visible?
 
             <div className="container">
