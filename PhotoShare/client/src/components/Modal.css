@@ -20,6 +20,7 @@
    .modal-open{
     display: grid;
    }
+   
    .btn_exit{
     border: none;
     outline: none;

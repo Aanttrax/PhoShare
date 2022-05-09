@@ -93,7 +93,7 @@ function HomePage({user}) {
     function desplegar(){
         show !== 'true'? setShow('true'):setShow('false')
     }
-
+    
     return (
 
         
@@ -104,7 +104,7 @@ function HomePage({user}) {
                     className="user">
                     <img 
                         src = {
-                            usuario_perfil.imgPerfil?usuario_perfil.imgPerfil:
+                            usuario_perfil.Perfil.imgPerfil?usuario_perfil.Perfil.imgPerfil:
                             userimagen} 
                         alt='user' width="50" height="50"/>
                     <p>
@@ -168,7 +168,7 @@ function HomePage({user}) {
                             {exist(c.username)?
                             <>
                             <div className="usuario_result" key={c.username}>
-                                <img src={c.imgPerfil} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
+                                <img src={c.Perfil.imgPerfil?c.Perfil.imgPerfil:userimagen} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
                                 <p>{c.username}</p>
 
                                 

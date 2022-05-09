@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import logo from '../img/logo.png';
 import { useSelector } from "react-redux";
 import firebaseApp from "../firebase/credenciales";
-
+import atras from '../img/atras.png';
+import { useNavigate } from "react-router-dom";
 
 import { getFirestore, doc, updateDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytesResumable, getDownloadURL, } from "firebase/storage";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 
 import './Edit.css';
 
@@ -20,6 +21,8 @@ const storage = getStorage(firebaseApp);
 
 function Edit() {
 
+    const navigate = useNavigate();
+
     const [isOpenModal, openModal, closeModal]= useModal();
     
     const [tipo,setTipo] = useState('Public');
@@ -31,8 +34,14 @@ function Edit() {
     const [filePortal,setFilePortal] = useState([]);
 
     let user = useSelector(state => state.user);
+    let usersbd = useSelector(state => state.users);
+
+    const usuario_perfil = usersbd.find(element => element.email === user.user.email);
 
     const uid = user.user.uid;
+    const oldPerfil = usuario_perfil.Perfil.imgName;
+    const oldPortal = usuario_perfil.Portal.imgName;
+    
  
     async function editUser(password,username) {
         
@@ -86,6 +95,18 @@ function Edit() {
             console.log(error.message)
         },
             ()=>{
+
+            // // Create a reference to the file to delete
+            // const desertRef = ref(storage, `Fotos/${oldPerfil}`);
+
+            // // Delete the file
+            // if(oldPerfil !== ''){
+            //     deleteObject(desertRef).then(() => {
+            //     // File deleted successfully
+            //     }).catch((error) => {
+            //     // Uh-oh, an error occurred!
+            //     });
+            // }
             
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                 console.log('File available at', downloadURL);
@@ -97,9 +118,11 @@ function Edit() {
 
                 const docuRef = doc(firestore, `users/${uid}`);
 
-                updateDoc(docuRef,{
-                imgPerfil: downloadURL
+                updateDoc(docuRef,{'Perfil.imgPerfil': downloadURL,
+                                   'Perfil.imgName':file.name
                 })
+
+                
 
               });
             
@@ -141,9 +164,19 @@ function Edit() {
             
               const docuRef = doc(firestore, `users/${uid}`);
 
-              updateDoc(docuRef,{
-                imgPortal: downloadURL
+              updateDoc(docuRef,{'Portal.imgPortal': downloadURL,
+                                 'Portal.imgName':filePortal.name
               })
+
+            //   // Create a reference to the file to delete
+            //   const desertRef = ref(storage, `Fotos/${oldPortal}`);
+
+            //   // Delete the file
+            //   deleteObject(desertRef).then(() => {
+            //   // File deleted successfully
+            //   }).catch((error) => {
+            //   // Uh-oh, an error occurred!
+            //   });
 
             });
           
@@ -154,6 +187,12 @@ function Edit() {
 
     return (
         <div className="body">
+            <img 
+                onClick={()=>{navigate('/home')}}
+                src={atras} 
+                className ='btn_atras'
+                alt='atras' 
+                width="50px" height="50px"/>
             <Modal 
                 isOpen={isOpenModal}
                 closeModal={closeModal}

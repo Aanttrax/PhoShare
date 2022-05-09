@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import atras from '../img/atras.png';
 
 import firebaseApp from "../firebase/credenciales";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
@@ -39,8 +40,9 @@ function Register() {
             sex:sex,
             age:age,
             tipo:'Public',
-            imgPerfil:'',
-            imgPortal:''
+            Perfil:{imgPerfil:'', imgName:''},
+            Portal:{imgPortal:'', imgName:''},
+            imagenes:[]
         });
 
     };
@@ -104,6 +106,12 @@ function Register() {
 
     return (
         <div className="body">
+            <img 
+                onClick={()=>{navigate('/login')}}
+                src={atras} 
+                className ='btn_atras'
+                alt='atras' 
+                width="50px" height="50px"/>
             <div className="register-box">
                 <img className = 'avatar'src={logo} alt="logo"/>
                 <h2>Register!</h2>

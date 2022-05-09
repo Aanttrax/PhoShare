@@ -21,6 +21,7 @@
 .user{
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .user p {
@@ -47,11 +48,13 @@
 }
 
 .select_menu .options {
-    position: relative;
+    position: fixed;
     padding: 20px;
     background-color: #bb0808;
     border-radius: 8px;
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    width: 250px;
+    z-index: 9999;
 }
 
 .options .option {
