@@ -217,16 +217,14 @@ function Edit() {
                         </div>
                     </div>
 
-                    <input 
-                        type ='button' 
-                        value='Eliminar cuenta'
-                        onClick={openModal}/>
-                        <Modal>
-                         isOpen={isOpenModal}
-                         closeModal={closeModal}
+                    <input type ='button' value='Eliminar cuenta'
+                                onClick={openModal}
+                            />
+                                <Modal 
+                                isOpen={isOpenModal}
+                                 closeModal={closeModal}
                  
-
-                    </Modal>
+                                />
                     
                     <input 
                         type = 'submit' 
