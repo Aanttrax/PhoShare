@@ -22,7 +22,7 @@ const auth = getAuth(firebaseApp)
 
 function HomePage({user}) {
     
-    
+    const [show,setShow]=useState('false')
 
     const dispatch = useDispatch();
 
@@ -88,7 +88,9 @@ function HomePage({user}) {
         return d.includes(letra);
     }
 
-
+    function desplegar(){
+        show !== 'true'? setShow('true'):setShow('false')
+    }
     return (
 
         
@@ -120,9 +122,10 @@ function HomePage({user}) {
             </div>
 
             <div className="select_menu">
-                <div className="select_btn">
+                <div className="select_btn" onClick={desplegar}>
                     <span className="btn_text">Selecionar su opcion</span>
                 </div>
+                {show === 'true'?
                 <ul className="options">
                     <li className="option" onClick={edit}>
                         <span className="option_text">Editar Perfil</span>
@@ -131,7 +134,9 @@ function HomePage({user}) {
                         <span className="option_text">Cerrar Sesion</span>
                     </li>
                 </ul>
-                
+                :<>
+                </>
+                }  
             </div>
             
             {visible?
