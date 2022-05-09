@@ -84,7 +84,6 @@ function HomePage({user}) {
         }
     }
 
-
     function exist(d){
         return d.includes(letra);
     }
@@ -108,29 +107,31 @@ function HomePage({user}) {
                     </p>
                 </div>
                 <div>
-                    <input className="search" 
-                            type= 'text' 
-                            name='buscar' 
-                            placeholder="Buscar" 
-                            onChange={escribi}>
+                    <input  
+                        className="search" 
+                        type= 'text' 
+                        name='buscar' 
+                        placeholder="Buscar" 
+                        onChange={escribi}>
                     </input>
                     
                 </div>
                 <img src = {alert} alt='user' width="50" height="50"/>
             </div>
-            <div className="menu">
-                <select aria-label="Opciones" className="select">
-                    <option value=''>Opciones</option>
-                    <option 
-                        value='Edit'
-                        onClick={edit}>
-                            Editar perfil
-                    </option>
-                    <option value='log out' 
-                        onClick={logOut}>
-                                Cerrar Sesion
-                    </option>
-                </select>
+
+            <div className="select_menu">
+                <div className="select_btn">
+                    <span className="btn_text">Selecionar su opcion</span>
+                </div>
+                <ul className="options">
+                    <li className="option" onClick={edit}>
+                        <span className="option_text">Editar Perfil</span>
+                    </li>
+                    <li className="option" onClick={logOut}>
+                        <span className="option_text">Cerrar Sesion</span>
+                    </li>
+                </ul>
+                
             </div>
             
             {visible?
@@ -159,11 +160,11 @@ function HomePage({user}) {
                         <div className="mienbros" key ={i}>
                             {exist(c.username)?
                             <>
-                            <div className="usuario_result" key={c.username}>
-                                <img src={c.imgPerfil} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
-                                <p>{c.username}</p>
-                            </div>
-                            <button className="seguir">seguir</button> 
+                                <div className="usuario_result" key={c.username}>
+                                    <img src={c.imgPerfil} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
+                                    <p>{c.username}</p>
+                                </div>
+                                <button className="seguir">seguir</button> 
                             </>
                             : ""}
                         </div>

@@ -9,7 +9,7 @@
 //     composeEnhancers(applyMiddleware(thunk))
 //   )
 
-  import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from '../reducer/reducer';
