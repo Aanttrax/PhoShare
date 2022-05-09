@@ -41,6 +41,7 @@ function Perfil(){
                     {Array.isArray(btn) && btn.map((c,i)=>(
                         <div>
                             <img
+                                key={i}
                                 className="img_perfil" 
                                 src = {c.img}
                                 alt= {c.name}/>
