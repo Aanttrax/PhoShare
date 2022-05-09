@@ -4,16 +4,23 @@ import logo from '../img/logo.png';
 import { useSelector } from "react-redux";
 import firebaseApp from "../firebase/credenciales";
 
+
 import { getFirestore, doc, updateDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL, } from "firebase/storage";
 
 import './Edit.css';
+
+import Modal from "./Modal";
+import useModal from "../hooks/useModal";
+
 
 const firestore = getFirestore(firebaseApp);
 const storage = getStorage(firebaseApp);
 
 
 function Edit() {
+
+    const [isOpenModal, openModal, closeModal]= useModal();
     
     const [tipo,setTipo] = useState('Public');
     const [uploadValue,setUploadValue] = useState({uploadValue:0,picture:''});
@@ -212,7 +219,14 @@ function Edit() {
 
                     <input 
                         type ='button' 
-                        value='Eliminar cuenta'/>
+                        value='Eliminar cuenta'
+                        onClick={openModal}/>
+                        <Modal>
+                         isOpen={isOpenModal}
+                         closeModal={closeModal}
+                 
+
+                    </Modal>
                     
                     <input 
                         type = 'submit' 

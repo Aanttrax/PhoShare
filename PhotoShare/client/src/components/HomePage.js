@@ -21,8 +21,34 @@ import { getStart } from "../actions/actions";
 const auth = getAuth(firebaseApp)
 
 function HomePage({user}) {
-    
-    
+    const[seguido,setSeguido]=useState('');
+    const[seguir,setSeguir]=useState(false);
+    function Seguir(user){
+
+        if ( seguir==false){
+            setSeguir(true);
+            setSeguido('seguir');
+            console.log('no');
+        }else {
+            setSeguir(false);
+            setSeguido('siguido');
+            
+            console.log(user);
+        }
+        }
+        function DejarSeguir(id){
+
+            if ( seguir==true){
+                setSeguir(true);
+                setSeguido('seguir');
+                console.log('no');
+            }else {
+                setSeguir(false);
+                setSeguido('seguido');
+                
+                console.log('yes');
+            }
+            }
 
     const dispatch = useDispatch();
 
@@ -89,7 +115,10 @@ function HomePage({user}) {
         return d.includes(letra);
     }
 
-
+    function handleSubmit(e) {
+        e.preventDefault();
+        console.log('You clicked submit.');
+      }
     return (
 
         
@@ -162,12 +191,18 @@ function HomePage({user}) {
                             <div className="usuario_result" key={c.username}>
                                 <img src={c.imgPerfil} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
                                 <p>{c.username}</p>
+
+                                
                             </div>
-                            <button className="seguir">seguir</button> 
+                           
+                            
+                            
                             </>
                             : ""}
+                            <button className="seguir" onClick={()=> Seguir(c.username)} >{seguido}</button> 
+                            
                         </div>
-                        
+                            
                         
                     ))}
                 </div>  
