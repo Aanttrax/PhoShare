@@ -21,35 +21,7 @@ import { getStart } from "../actions/actions";
 const auth = getAuth(firebaseApp)
 
 function HomePage({user}) {
-    const[seguido,setSeguido]=useState('');
-    const[seguir,setSeguir]=useState(false);
-    function Seguir(user){
-
-        if ( seguir==false){
-            setSeguir(true);
-            setSeguido('seguir');
-            console.log('no');
-        }else {
-            setSeguir(false);
-            setSeguido('siguido');
-            
-            console.log(user);
-        }
-        }
-        function DejarSeguir(id){
-
-            if ( seguir==true){
-                setSeguir(true);
-                setSeguido('seguir');
-                console.log('no');
-            }else {
-                setSeguir(false);
-                setSeguido('seguido');
-                
-                console.log('yes');
-            }
-            }
-
+    
     const dispatch = useDispatch();
 
     let userbd = useSelector(state => state.user);
@@ -195,11 +167,11 @@ function HomePage({user}) {
                                 
                             </div>
                            
-                            
+                            <button className="seguir"  >seguir</button> 
                             
                             </>
                             : ""}
-                            <button className="seguir" onClick={()=> Seguir(c.username)} >{seguido}</button> 
+                            
                             
                         </div>
                             
