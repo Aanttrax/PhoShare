@@ -89,10 +89,6 @@ function HomePage({user}) {
         return d.includes(letra);
     }
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        console.log('You clicked submit.');
-      }
 
     function desplegar(){
         show !== 'true'? setShow('true'):setShow('false')

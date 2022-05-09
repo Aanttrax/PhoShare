@@ -154,6 +154,10 @@ function Edit() {
 
     return (
         <div className="body">
+            <Modal 
+                isOpen={isOpenModal}
+                closeModal={closeModal}
+            />
             <div className="edit-box">
             <img className = 'avatar'src={logo} alt="logo"/>
                 <h2>Edit Profile</h2>
@@ -220,11 +224,7 @@ function Edit() {
                     <input type ='button' value='Eliminar cuenta'
                                 onClick={openModal}
                             />
-                                <Modal 
-                                isOpen={isOpenModal}
-                                 closeModal={closeModal}
-                 
-                                />
+                               
                     
                     <input 
                         type = 'submit' 
