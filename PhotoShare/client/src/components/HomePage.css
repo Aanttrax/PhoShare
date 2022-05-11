@@ -1,3 +1,6 @@
+body{
+    background-color: black;
+}
 
 .search {
     background-color: white;
@@ -151,4 +154,17 @@
     padding-left: 40px;
     padding-right: 40px;
     border-radius: 10px;
+}
+
+.volver{
+    background-color: #bb0808;
+    border-radius: 50%;
+    font-size: 30px;
+    width: 100px;
+    float: right;
+    margin-right: 20px;
+}
+
+.boton_categoria{
+    background-color: black;
 }
