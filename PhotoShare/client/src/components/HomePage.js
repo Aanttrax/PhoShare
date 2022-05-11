@@ -170,7 +170,8 @@ function HomePage({user}) {
             </div>
 
             {visible === 3?
-            <button className="volver" onClick={vol}>atras</button>
+            <button className="volver" onClick={vol}>Atras</button>
+            
             : ""}
 
             {visible === 1?
