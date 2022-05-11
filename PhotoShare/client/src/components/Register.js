@@ -9,7 +9,7 @@ import { getFirestore, doc, setDoc } from 'firebase/firestore'
 import logo from '../img/logo.png';
 
 import './Register.css';
-import useModal from "../hooks/useModal";
+//import useModal from "../hooks/useModal";
 import swal from 'sweetalert';
 
 
@@ -19,7 +19,7 @@ const firestore = getFirestore(firebaseApp);
 
 function Register() {
    
-    const [isOpenRegisterModal, openRegisterModal, closeRegisterModal]= useModal();
+    //const [isOpenRegisterModal, openRegisterModal, closeRegisterModal]= useModal();
     const mostrarAlerta =()=>{
         swal({
                 title: "Cuenta creada exitosamente",

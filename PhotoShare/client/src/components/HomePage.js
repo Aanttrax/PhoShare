@@ -112,7 +112,7 @@ function HomePage({user}) {
         return todasImgs;
     }
     //array que da todas las imagenes de una categoria
-    let todasImagenes = llenar(todasImgs).filter(imgs => imgs.categoria == nomCategoria);
+    let todasImagenes = llenar(todasImgs).filter(imgs => imgs.categoria === nomCategoria);
     
     const estadoBoton = (cat) => {
         console.log(cat);
@@ -176,8 +176,8 @@ function HomePage({user}) {
             {visible === 1?
             <div className="container">
                 {Array.isArray(btn) && btn.map((c,i)=>(
-                    <div className="card" key ={i}>
-                        <button className="boton_categoria" onClick={() => estadoBoton(c.name)}>
+                    <div className="card" key ={i} onClick={() => estadoBoton(c.name)}>
+                        
                         <p className="title">{c.name}</p>
                         <div className="ima">
                             <img 
@@ -186,7 +186,7 @@ function HomePage({user}) {
                                 className = 'img' 
                             />
                         </div>
-                        </button>
+                        
                     </div> 
                 ))}
             </div>
