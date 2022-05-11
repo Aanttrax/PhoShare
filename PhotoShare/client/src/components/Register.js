@@ -9,13 +9,27 @@ import { getFirestore, doc, setDoc } from 'firebase/firestore'
 import logo from '../img/logo.png';
 
 import './Register.css';
+import useModal from "../hooks/useModal";
+import swal from 'sweetalert';
+
 
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
 
 function Register() {
-
+   
+    const [isOpenRegisterModal, openRegisterModal, closeRegisterModal]= useModal();
+    const mostrarAlerta =()=>{
+        swal({
+                title: "Cuenta creada exitosamente",
+                icon: "success",
+                button: "aceptar"
+        }
+        );
+    }
+    
+  
     const navigate = useNavigate();
 
     const [mail,setMail]= useState('');
@@ -153,13 +167,12 @@ function Register() {
                         id = 'age' 
                         type = 'text' 
                         placeholder="Enter Age"/>
-
-                    <input type = 'submit' value='Register'/>
-
-                    <Link to = '/login' className="a">
+                       
+                       <input type = 'submit'  value='Register' onClick={()=>mostrarAlerta()}/>
+                          <Link to = '/login' className="a">
                         Back to sign in
-                    </Link>
-                </form>
+                        </Link>
+                </form>      
             </div>
         </div>
     );

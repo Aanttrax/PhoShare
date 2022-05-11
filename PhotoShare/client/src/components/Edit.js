@@ -13,6 +13,7 @@ import './Edit.css';
 
 import Modal from "./Modal";
 import useModal from "../hooks/useModal";
+import swal from 'sweetalert';
 
 
 const firestore = getFirestore(firebaseApp);
@@ -22,6 +23,17 @@ const storage = getStorage(firebaseApp);
 function Edit() {
 
     const navigate = useNavigate();
+
+    const mostrarAlerta =()=>{
+        swal({
+                title: "Cambios aplicados Correctamente",
+                icon: "success",
+                button: "aceptar"
+        }
+        
+        );
+        navigate('/home');
+    }
 
     const [isOpenModal, openModal, closeModal]= useModal();
     
@@ -161,7 +173,7 @@ function Edit() {
                   uploadValue:100,
                   picture: downloadURL
               })
-            
+
               const docuRef = doc(firestore, `users/${uid}`);
 
               updateDoc(docuRef,{'Portal.imgPortal': downloadURL,
@@ -267,7 +279,7 @@ function Edit() {
                     
                     <input 
                         type = 'submit' 
-                        value='Aplicar'/>
+                        value='Aplicar' onClick={()=>mostrarAlerta() }/>    
                 </form>
             </div>
         </div>
