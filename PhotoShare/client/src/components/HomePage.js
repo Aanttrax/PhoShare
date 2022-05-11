@@ -30,6 +30,8 @@ function HomePage({user}) {
     let usersbd = useSelector(state => state.users);
     
     const usuario_perfil = usersbd.find(element => element.email === userbd.user.email);
+
+    
     
     useEffect(()=>{
         dispatch(getStart())
@@ -71,16 +73,16 @@ function HomePage({user}) {
         navigate('/perfil')
     }
 
-    const [visible , setVisible] = useState(true);
+    const [visible , setVisible] = useState(1);
     const [letra , setLetra] = useState("");
     
 
     const escribi = (e) => {
         setLetra(e.target.value);
         if(e.target.value === ''){
-            setVisible(true);
+            setVisible(1);
         }else if(letra.length >= 0 && letra.length !== 1){
-            setVisible(false);
+            setVisible(2);
         }
     }
 
@@ -94,9 +96,35 @@ function HomePage({user}) {
         show !== 'true'? setShow('true'):setShow('false')
     }
     
-    return (
+    const [nomCategoria , setNomCategoria] = useState('');
 
-        
+    //filtra los usuarios
+    let usuariosbd = useSelector(state => state.users);
+    //filtra usuarios que subieron imagenes
+    let filtrados = usuariosbd.filter(imgs => imgs.imagenes.length > 0);
+    //llena un array con todas las imagenes que hay
+    let todasImgs = [];
+    console.log(llenar(todasImgs));
+    function llenar(todasImgs){
+        for (let i = 0; i < filtrados.length; i++) {
+            todasImgs = todasImgs.concat(filtrados[i].imagenes);
+        }
+        return todasImgs;
+    }
+    //array que da todas las imagenes de una categoria
+    let todasImagenes = llenar(todasImgs).filter(imgs => imgs.categoria == nomCategoria);
+    
+    const estadoBoton = (cat) => {
+        console.log(cat);
+        setNomCategoria(cat);
+        setVisible(3);
+    }
+
+    function vol(){
+        setVisible(1);
+    }
+    
+    return (
         <div className="home">
             <div className="principal">
                 <div 
@@ -140,12 +168,16 @@ function HomePage({user}) {
                 </>
                 }  
             </div>
-   
-            {visible?
 
+            {visible === 3?
+            <button className="volver" onClick={vol}>atras</button>
+            : ""}
+
+            {visible === 1?
             <div className="container">
                 {Array.isArray(btn) && btn.map((c,i)=>(
                     <div className="card" key ={i}>
+                        <button className="boton_categoria" onClick={() => estadoBoton(c.name)}>
                         <p className="title">{c.name}</p>
                         <div className="ima">
                             <img 
@@ -154,37 +186,45 @@ function HomePage({user}) {
                                 className = 'img' 
                             />
                         </div>
-                    </div>
+                        </button>
+                    </div> 
                 ))}
             </div>
             : ""}
 
-            {visible === false? 
-                <div className="container_search">
+            {visible === 2? 
+            <div className="container_search">
                     {Array.isArray(usersbd) && usersbd.map((c,i)=>(
-                        
-                        
                         <div className="mienbros" key ={i}>
                             {exist(c.username)?
                             <>
                             <div className="usuario_result" key={c.username}>
                                 <img src={c.Perfil.imgPerfil?c.Perfil.imgPerfil:userimagen} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
-                                <p>{c.username}</p>
-
-                                
+                                <p>{c.username}</p>  
                             </div>
-                           
-                            <button className="seguir"  >seguir</button> 
-                            
+                            <button className="seguir">seguir</button> 
                             </>
                             : ""}
-                            
-                            
                         </div>
-                            
-                        
                     ))}
-                </div>  
+            </div>
+            : ""}
+
+            {visible === 3? 
+            <div>
+                <div className="container">
+                    {Array.isArray(todasImagenes) && todasImagenes.map((c,i)=>(
+                        <div key={i} className = 'imagenes_perfil'>
+                            <>
+                            <img
+                                className="imagenes_show"
+                                src = {c.imag}
+                                alt= {c.nameimg}/>
+                            </>
+                        </div>
+                    ))}
+                </div>
+            </div>
             : ""}
 
         </div>
