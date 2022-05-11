@@ -32,7 +32,7 @@ function Edit() {
         }
         
         );
-        navigate('/home');
+
     }
 
     const [isOpenModal, openModal, closeModal]= useModal();
