@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Subir from './Subir.js';
 import useModal from "../hooks/useModal";
 import atras from '../img/atras.png';
@@ -18,6 +18,9 @@ function Perfil(){
 
     const [isOpenModal, openModal, closeModal]= useModal();
 
+    let { email } = useParams();
+    
+
     let btn = [{name : 'Amigos', 
                img : `${friends}`}, 
                {name : 'Favoritos', 
@@ -28,15 +31,18 @@ function Perfil(){
 
     let userbd = useSelector(state => state.user);
     let usersbd = useSelector(state => state.users);
-    
-    const usuario_perfil = usersbd.find(element => element.email === userbd.user.email);
 
-    console.log(usuario_perfil.imagenes)
+    let usuario_perfil = usersbd.find(element => element.email === userbd.user.email);
+    
+        
+    if(email === undefined || email === userbd.user.email) {
+    }else {
+        usuario_perfil = usersbd.find(element => element.email === email)
+    }
     
     function select(e) {
         
         const seleccion = e.target.alt;
-        console.log(seleccion,'**************')
         switch(seleccion){
             case 'Subir':
                 openModal()
