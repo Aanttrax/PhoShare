@@ -1,9 +1,16 @@
-import React from "react";
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
+import firebaseApp from "../firebase/credenciales";
+import { getStorage, ref, deleteObject } from "firebase/storage";
+import { getFirestore, doc, updateDoc, arrayRemove } from 'firebase/firestore';
+
 import Subir from './Subir.js';
 import useModal from "../hooks/useModal";
 import atras from '../img/atras.png';
+import eliminar from '../img/Eliminar.png';
+import swal from 'sweetalert';
+import { getStart } from "../actions/actions";
 
 import friends from '../img/Amigos.png';
 import favorites from '../img/Favorito.png';
@@ -12,11 +19,16 @@ import user from '../img/user.png';
 
 import './Perfil.css';
 
+const storage = getStorage(firebaseApp);
+const firestore = getFirestore(firebaseApp);
+
 function Perfil(){
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [isOpenModal, openModal, closeModal]= useModal();
+    const [suprimido, setSuprimido] = useState(true);
 
     let { email } = useParams();
     
@@ -31,6 +43,8 @@ function Perfil(){
 
     let userbd = useSelector(state => state.user);
     let usersbd = useSelector(state => state.users);
+
+    const uid = userbd.user.uid;
 
     let usuario_perfil = usersbd.find(element => element.email === userbd.user.email);
     
@@ -48,6 +62,54 @@ function Perfil(){
                 openModal()
         }
     }
+
+    useEffect(()=>{
+        dispatch(getStart())
+    },[suprimido])
+
+    function deleteimg(e) {
+        swal({
+            title: "Estas Seguro que quieres Eliminar la Imagen?",
+            text: "Una vez Eliminado, Usted no podra recuperar esta Imagen!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                const desertRef = ref(storage, `Imagenes/${e.target.alt}`);
+                deleteObject(desertRef).then(() => {
+                // File deleted successfully
+                }).catch((error) => {
+                // Uh-oh, an error occurred!
+                });
+
+                let imagen_borrar = usuario_perfil.imagenes.find(element => element.nameimg === e.target.alt);
+                
+
+                const docuRef = doc(firestore, `users/${uid}`);
+
+                updateDoc(docuRef,{
+                    imagenes: arrayRemove({nameimg:`${imagen_borrar.nameimg}`,
+                                            imag:`${imagen_borrar.imag}`,
+                                            categoria:`${imagen_borrar.categoria}`}),
+                });
+                setSuprimido(!suprimido);
+
+              swal("Poof! La imagen a sido eliminado!", {
+                icon: "success",
+              });
+            } else {
+              swal("Tu imganen esta Seguro XD!");
+            }
+          });
+    
+    }
+
+    function refresh (){
+        setSuprimido(!suprimido);
+    }
+
 
     return (
         <div className="body_perfil">
@@ -82,15 +144,28 @@ function Perfil(){
                 </div>
             </header>
             <div className="contenido">
-                <Subir isOpen={isOpenModal}
-                closeModal={closeModal}/>
+                <Subir 
+                    isOpen={isOpenModal}
+                    closeModal={closeModal}
+                    refresh={refresh}/>
 
                 {Array.isArray(usuario_perfil.imagenes) && usuario_perfil.imagenes.map((c,i)=>(
                     <div key={i} className = 'imagenes_perfil'>
-                        <img
-                            className="imagenes_show"
-                            src = {c.imag}
-                            alt= {c.nameimg}/>
+                        <div className="roll_img">
+                            <img
+                                className="imagenes_show"
+                                src = {c.imag}
+                                alt= {c.nameimg}/>
+                        </div>
+                        {usuario_perfil.email === userbd.user.email?
+                            <div className="btns_imgs">
+                            <img 
+                                onClick={deleteimg}
+                                src={eliminar}
+                                alt={c.nameimg}/>
+                            </div>
+                        :''}
+                        
                     </div>
                 ))}
 

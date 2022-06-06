@@ -86,7 +86,7 @@ function Register() {
     };
 
     function validarPass(pas) {
-        console.log(pas.length)
+        
         if(pas.length <5) {
             setMessagePas (`El password tiene que tener como minnimo 6 caracteres`);  
         } else {
@@ -97,10 +97,10 @@ function Register() {
     function validarEquality(equality) {
         if(pas !== equality){
             setEqualityMenssage('El Password no coincide')
-            console.log(pas, equality)
+            
         } else {
             setEqualityMenssage('')
-            console.log(pas, equality)
+            
         }
     }
 

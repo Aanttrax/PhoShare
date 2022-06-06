@@ -194,7 +194,7 @@ function HomePage({user}) {
                         <div key ={i}>
                             {exist(c.username)?
                             <>
-                            <Link className="mienbros" to = {`/${c.email}`} key = {`link_${c.email}`}>
+                            <Link className="mienbros" to = {c.email === userbd.user.email?'/Perfil':`/${c.email}`} key = {`link_${c.email}`}>
                                 <div className="usuario_result" key={c.username}>
                                     <img src={c.Perfil.imgPerfil?c.Perfil.imgPerfil:userimagen} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
                                     <p>{c.username}</p>  
