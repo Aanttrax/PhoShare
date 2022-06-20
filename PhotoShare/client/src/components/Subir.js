@@ -11,7 +11,7 @@ const firestore = getFirestore(firebaseApp);
 const storage = getStorage(firebaseApp);
 
 
-function Subir({isOpen, closeModal}){
+function Subir({isOpen, closeModal, refresh}){
 
     
     let userbd = useSelector(state => state.user);
@@ -66,7 +66,8 @@ function Subir({isOpen, closeModal}){
                                       nameimg:fileImagen.name,
                                       categoria:tipoCategoria})
               })
-              closeModal()
+              closeModal();
+              refresh();
             });
           
       });

@@ -2,6 +2,7 @@ import {useState} from 'react'
 
 const useModal = () => {
     const [isOpenModal, setIsOpenModal]= useState(false);
+    
     const openModal =()=> {
 
         setIsOpenModal(true);

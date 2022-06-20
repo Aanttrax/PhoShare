@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import userimagen from '../img/user.png';
 
@@ -56,12 +56,8 @@ function HomePage({user}) {
 
     const navigate = useNavigate();
 
-    
-
-
     async function logOut(){
         const sing = await signOut(auth)
-        console.log(sing)
         navigate('/');
 
     };
@@ -106,7 +102,6 @@ function HomePage({user}) {
     let filtrados = usuariosbd.filter(imgs => imgs.imagenes.length > 0);
     //llena un array con todas las imagenes que hay
     let todasImgs = [];
-    console.log(llenar(todasImgs));
     function llenar(todasImgs){
         for (let i = 0; i < filtrados.length; i++) {
             todasImgs = todasImgs.concat(filtrados[i].imagenes);
@@ -117,7 +112,6 @@ function HomePage({user}) {
     let todasImagenes = llenar(todasImgs).filter(imgs => imgs.categoria === nomCategoria);
     
     const estadoBoton = (cat) => {
-        console.log(cat);
         setNomCategoria(cat);
         setVisible(3);
     }
@@ -208,14 +202,17 @@ function HomePage({user}) {
             {visible === 2? 
             <div className="container_search">
                     {Array.isArray(usersbd) && usersbd.map((c,i)=>(
-                        <div className="mienbros" key ={i}>
+                        
+                        <div key ={i}>
                             {exist(c.username)?
                             <>
-                            <div className="usuario_result" key={c.username}>
-                                <img src={c.Perfil.imgPerfil?c.Perfil.imgPerfil:userimagen} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
-                                <p>{c.username}</p>  
-                            </div>
-                            <button className="seguir">seguir</button> 
+                            <Link className="mienbros" to = {c.email === userbd.user.email?'/Perfil':`/${c.email}`} key = {`link_${c.email}`}>
+                                <div className="usuario_result" key={c.username}>
+                                    <img src={c.Perfil.imgPerfil?c.Perfil.imgPerfil:userimagen} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
+                                    <p>{c.username}</p>  
+                                </div>
+                                <button className="seguir">seguir</button> 
+                            </Link>
                             </>
                             : ""}
                         </div>

@@ -42,7 +42,7 @@ function App() {
         <Route exact path = "/edit" element = {<Edit/>}/>
         <Route exact path = "/perfil" element = {<Perfil/>}/>
         <Route exact path = "/ver" element = {<Ver/>}/>
-
+        <Route exact path = '/:email'element = {<Perfil/>}/>
       </Routes>
     </div>
   );
