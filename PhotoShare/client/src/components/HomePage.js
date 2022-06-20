@@ -135,7 +135,6 @@ function HomePage({user}) {
     function ir(){
         navigate('/ver')
     }
-    
     return (
         <div className="home">
             <div className="principal">
