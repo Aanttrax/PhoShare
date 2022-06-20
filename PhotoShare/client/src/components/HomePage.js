@@ -19,6 +19,8 @@ import { getStart } from "../actions/actions";
 
 
 const auth = getAuth(firebaseApp)
+var defini, imgurl 
+
 
 function HomePage({user}) {
     
@@ -123,6 +125,16 @@ function HomePage({user}) {
     function vol(){
         setVisible(1);
     }
+   
+    const datosImg = (name , url) => {
+        imgurl= url;
+        defini = name;
+        ir();
+    }
+    
+    function ir(){
+        navigate('/ver')
+    }
     
     return (
         <div className="home">
@@ -218,6 +230,7 @@ function HomePage({user}) {
                         <div key={i} className = 'imagenes_perfil'>
                             <>
                             <img
+                                onClick = {() => datosImg(c.nameimg , c.imag)}
                                 className="imagenes_show"
                                 src = {c.imag}
                                 alt= {c.nameimg}/>
@@ -231,5 +244,5 @@ function HomePage({user}) {
         </div>
     )
 };
-
+export{defini, imgurl};
 export default HomePage;

@@ -12,7 +12,7 @@ import Recovery from "./components/Recovery.js";
 import HomePage from './components/HomePage.js';
 import Edit from "./components/Edit.js";
 import Perfil from "./components/Perfil.js";
-
+import Ver from "./components/Ver.js"
 import './App.css';
 
 const auth = getAuth(firebaseApp);
@@ -41,6 +41,7 @@ function App() {
         <Route exact path = "/login" element = {<Login/>}/>
         <Route exact path = "/edit" element = {<Edit/>}/>
         <Route exact path = "/perfil" element = {<Perfil/>}/>
+        <Route exact path = "/ver" element = {<Ver/>}/>
 
       </Routes>
     </div>
