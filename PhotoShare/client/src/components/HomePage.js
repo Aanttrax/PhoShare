@@ -5,6 +5,8 @@ import userimagen from '../img/user.png';
 
 import firebaseApp from "../firebase/credenciales";
 import { getAuth, signOut } from "firebase/auth"
+import {doc, updateDoc, arrayUnion,arrayRemove, getFirestore} from "firebase/firestore";
+
 
 import alert from '../img/alert.png';
 
@@ -30,8 +32,8 @@ function HomePage({user}) {
     let usersbd = useSelector(state => state.users);
     
     const usuario_perfil = usersbd.find(element => element.email === userbd.user.email);
+    let otrosUsers = usersbd.filter(us => us.username !== usuario_perfil.username );
 
-    
     
     useEffect(()=>{
         dispatch(getStart())
@@ -108,7 +110,7 @@ function HomePage({user}) {
     }
     //array que da todas las imagenes de una categoria
     let todasImagenes = llenar(todasImgs).filter(imgs => imgs.categoria === nomCategoria);
-    
+
     const estadoBoton = (cat) => {
         setNomCategoria(cat);
         setVisible(3);
@@ -117,7 +119,30 @@ function HomePage({user}) {
     function vol(){
         setVisible(1);
     }
-    
+
+    const uid = userbd.user.uid;
+    const firestore = getFirestore(firebaseApp)
+    const[btnn, setBtn]=useState("Seguir")
+
+    const eventoSeguir=(id ,user , cont)=>{
+            if(cont=="Seguir"){
+                document.getElementById(id).textContent="Dejar de seguir"
+                const docuRef = doc(firestore, `users/${uid}`);
+                updateDoc(docuRef,{
+                seguidos: arrayUnion({ gmail: id,
+                                       nombre: user })
+                })
+            }
+            if(cont=="Dejar de seguir"){
+                document.getElementById(id).textContent="Seguir"
+                const docuRef = doc(firestore, `users/${uid}`);
+                updateDoc(docuRef,{
+                seguidos: arrayRemove({ gmail: id,
+                                        nombre: user })
+                })
+            }
+        };
+
     return (
         <div className="home">
             <div className="principal">
@@ -189,19 +214,21 @@ function HomePage({user}) {
 
             {visible === 2? 
             <div className="container_search">
-                    {Array.isArray(usersbd) && usersbd.map((c,i)=>(
-                        
+                    {Array.isArray(otrosUsers) && otrosUsers.map((c,i)=>(
                         <div key ={i}>
                             {exist(c.username)?
                             <>
-                            <Link className="mienbros" to = {c.email === userbd.user.email?'/Perfil':`/${c.email}`} key = {`link_${c.email}`}>
                                 <div className="usuario_result" key={c.username}>
-                                    <img src={c.Perfil.imgPerfil?c.Perfil.imgPerfil:userimagen} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
-                                    <p>{c.username}</p>  
+                                    <Link className="mienbros" to = {c.email === userbd.user.email?'/Perfil':`/${c.email}`} key = {`link_${c.email}`}>
+                                        <img src={c.Perfil.imgPerfil?c.Perfil.imgPerfil:userimagen} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
+                                        <p>{c.username}</p>
+                                    </Link>
+                                    <div>
+                                        <button id={c.email} className="seguir" onClick={()=>eventoSeguir(c.email,c.username,document.getElementById(c.email).textContent)}>{btnn}</button>
+                                    </div>
                                 </div>
-                                <button className="seguir">seguir</button> 
-                            </Link>
                             </>
+                            
                             : ""}
                         </div>
                     ))}

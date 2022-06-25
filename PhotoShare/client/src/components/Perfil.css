@@ -100,3 +100,30 @@
 .btns_imgs img:hover{
     background-color: aliceblue;
 }
+
+.container_seguidos{
+    margin-top: 60px;
+    align-items: center;
+    justify-content: center;
+    height: 650px;
+    flex-wrap: wrap;
+}
+
+.nameSeguido{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    text-decoration: none;
+    transition: all 0.25s;
+}
+
+.volver{
+    background-color: #bb0808;
+    border-radius: 20px;
+    font-size: 20px;
+    width: 100px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 40px;
+}

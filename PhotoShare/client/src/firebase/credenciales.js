@@ -3,12 +3,12 @@ import { initializeApp } from "firebase/app";
 
 // Añade aquí tus credenciales
 const firebaseConfig = {
-    apiKey: "AIzaSyDtsEc3qt6LPGpgL16Q2dX6vH-pDvcp1z0",
-    authDomain: "photoshare-919cc.firebaseapp.com",
-    projectId: "photoshare-919cc",
-    storageBucket: "photoshare-919cc.appspot.com",
-    messagingSenderId: "442873763568",
-    appId: "1:442873763568:web:e7da8609f77db0809a1435"
+    apiKey: "AIzaSyC0HGnxG0H6WXYKs9Zw-NVTY-FJLxi1CzQ",
+  authDomain: "photoshare-fd9fc.firebaseapp.com",
+  projectId: "photoshare-fd9fc",
+  storageBucket: "photoshare-fd9fc.appspot.com",
+  messagingSenderId: "528157491027",
+  appId: "1:528157491027:web:3c4cf6cb95a3319c0baba6"
 };
 
 // Inicializamos la aplicación y la guardamos en firebaseApp

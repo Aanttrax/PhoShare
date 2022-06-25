@@ -85,7 +85,6 @@ function Perfil(){
                 });
 
                 let imagen_borrar = usuario_perfil.imagenes.find(element => element.nameimg === e.target.alt);
-                
 
                 const docuRef = doc(firestore, `users/${uid}`);
 
@@ -110,6 +109,18 @@ function Perfil(){
         setSuprimido(!suprimido);
     }
 
+    const [estado , setEstado] = useState(1);
+
+    function personasSeguidas(){
+        setEstado(2);
+    }
+
+    function vol (){
+        setEstado(1);
+    }
+
+    let seguidos = usuario_perfil.seguidos;
+
 
     return (
         <div className="body_perfil">
@@ -128,7 +139,7 @@ function Perfil(){
                     <div >
                         <p className="status_perfil">{usuario_perfil.username}</p><br/>
                         <span className="status_perfil">Seguidores</span>
-                        <span className="status_perfil">Seguidos</span>    
+                        <span className="status_perfil"><botton onClick={personasSeguidas}>Seguidos</botton></span>   
                     </div>
                 </div>
                 <div className="btn_perfil">
@@ -143,6 +154,7 @@ function Perfil(){
                     ))}
                 </div>
             </header>
+            {estado == 1? 
             <div className="contenido">
                 <Subir 
                     isOpen={isOpenModal}
@@ -170,6 +182,20 @@ function Perfil(){
                 ))}
 
             </div>
+            : ""}
+            {estado == 2? 
+            <div className="container_seguidos">
+                <div>
+                    <button className="volver" onClick={vol}>atras</button>
+                </div> 
+                {Array.isArray(seguidos) && seguidos.map((c,i)=>(
+                    <div key ={i}>
+                        <div className="nameSeguido">{c.nombre}</div>
+                        <div></div>
+                    </div>
+                ))}
+            </div>
+            : ""}
         </div>
     )
 }

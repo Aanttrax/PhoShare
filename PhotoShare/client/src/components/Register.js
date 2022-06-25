@@ -56,7 +56,8 @@ function Register() {
             tipo:'Public',
             Perfil:{imgPerfil:'', imgName:''},
             Portal:{imgPortal:'', imgName:''},
-            imagenes:[]
+            imagenes:[],
+            seguidos:{}
         });
 
     };
