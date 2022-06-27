@@ -31,7 +31,7 @@ function Ver(){
 
     let usuario_perfil = usersbd.find(element => element.email === userbd.user.email);
     let img_verify = usuario_perfil.favoritos.find(element => element.imag === imgurl);
-    console.log(img_verify,'aquiiiii')
+
 
     let btn = [{name : 'Imagen', 
                img : `${image}`},
@@ -102,7 +102,7 @@ function Ver(){
     let filtrados = usuariosbd.filter(imgs => imgs.imagenes.length > 0);
     //llena un array con todas las imagenes que hay
     let todasImgs = [];
-    console.log(llenar(todasImgs));
+    
     function llenar(todasImgs){
         for (let i = 0; i < filtrados.length; i++) {
             todasImgs = todasImgs.concat(filtrados[i].imagenes);
@@ -111,8 +111,6 @@ function Ver(){
     }
     //array de la imagen
     let imagenVer = llenar(todasImgs).filter(imgs => imgs.nameimg === defini);
-    console.log(defini,'**************')
-    console.log(imagenVer,'**************')
 
     function select(e) {
         
@@ -155,9 +153,9 @@ function Ver(){
         <div className="Ver">
             
             <div className="cuerpo">
-                <div className="div_ver">
+                <div >
                     {Array.isArray(imagenVer) && imagenVer.map((c,i)=>(
-                        <div key={i} >
+                        <div className="div_ver" key={i} >
                             <>
                             <img
                                 className="img_ver"

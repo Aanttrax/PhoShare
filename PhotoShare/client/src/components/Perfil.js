@@ -64,12 +64,14 @@ function Perfil(){
             case 'Favoritos':
                 setSeccion(!seccion)
             break;
+            default:
+            break;
         }
     }
 
     useEffect(()=>{
         dispatch(getStart())
-    },[suprimido])
+    },[suprimido]) // eslint-disable-line react-hooks/exhaustive-deps
 
     function deleteimg(e) {
         swal({
