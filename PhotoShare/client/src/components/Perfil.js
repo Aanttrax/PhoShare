@@ -33,7 +33,7 @@ function Perfil(){
     let { email } = useParams();
     
 
-    let btn = [{name : 'Amigos', 
+    let btn = [{name : 'seguidos', 
                img : `${friends}`}, 
                {name : 'Favoritos', 
                img : `${favorites}`}, 
@@ -60,6 +60,9 @@ function Perfil(){
         switch(seleccion){
             case 'Subir':
                 openModal()
+            break;
+            case 'seguidos':
+                mostrar_seguidos()
             break;
             case 'Favoritos':
                 setSeccion(!seccion)
@@ -116,6 +119,17 @@ function Perfil(){
         setSuprimido(!suprimido);
     }
 
+    const[mostrarSeguidos,setMostrarSeuidos] = useState(1)
+    let seguidos = usuario_perfil.seguidos;
+
+    function mostrar_seguidos(){
+        setMostrarSeuidos(2)
+    }
+
+    function volver(){
+        setMostrarSeuidos(1)
+    }
+
 
     return (
         <div className="body_perfil">
@@ -132,9 +146,11 @@ function Perfil(){
                         alt='usuario'
                         width="130" height="130"/>
                     <div >
-                        <p className="status_perfil">{usuario_perfil.username}</p><br/>
-                        <span className="status_perfil">Seguidores</span>
-                        <span className="status_perfil">Seguidos</span>    
+                        <p className="status_perfil">{usuario_perfil.username}</p>
+                        <br/>
+                        <p className="status_perfil">{usuario_perfil.email}</p>
+                        <span className="status_perfil">edad: {usuario_perfil.age}</span>
+                        <span className="status_perfil">Tipo: {usuario_perfil.tipo}</span>    
                     </div>
                 </div>
                 <div className="btn_perfil">
@@ -150,6 +166,22 @@ function Perfil(){
                 </div>
             </header>
             <div className="contenido">
+                {mostrarSeguidos === 2? 
+                <div className="contenedor_seguidores">
+                    <h2>Seguidos:</h2>
+                    <div className="atra_seguidores">
+                        <button className="boton_atras" onClick={volver}>atras</button>
+                    </div>
+                    <div className="lista_seguidores">
+                        {Array.isArray(seguidos) && seguidos.map((c,i)=>(
+                            <div key={i} className = 'seguidos'>
+                                <div>{c.nombre}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                : ""}
+
                 {seccion?
                 <div>
                     {Array.isArray(usuario_perfil.favoritos) && usuario_perfil.favoritos.map((c,i)=>(

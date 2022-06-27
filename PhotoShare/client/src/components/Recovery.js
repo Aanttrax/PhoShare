@@ -9,13 +9,13 @@ function Recovery(){
         <div className="body">
             <div className="recovery-box">
                 <img className = 'avatar'src={logo} alt="logo"/>
-                <h2>Forgot your Password?</h2>
+                <h2>Olvidaste tu contraseña?</h2>
                 <form>
-                    <label htmlFor = 'email'>Email</label>
-                    <input type = 'text' placeholder="Enter Email"/>
-                    <input type = 'submit' value='Request Password Reset'/>
+                    <label htmlFor = 'email'>E-mail</label>
+                    <input type = 'text' placeholder="Ingrese su correo electronico"/>
+                    <input type = 'submit' value='recuperar contraseña'/>
                     <Link to = '/login' className="a">
-                        Back to sign in
+                        Volver a inicio de sesion
                     </Link>
                 </form>
             </div>

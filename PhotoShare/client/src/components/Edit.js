@@ -32,6 +32,8 @@ function Edit() {
         }
         
         );
+        upLoad();
+        upLoadPortal();
 
     }
 
@@ -233,10 +235,7 @@ function Edit() {
                             onChange={onUpload}
                             type = 'file' 
                             name = 'imagen subida'/>
-                        <input 
-                            onClick={upLoad}
-                            type = 'button' 
-                            value = 'subir imagen'/>
+                        
                     </p>
 
                     <label htmlFor = 'imgPortada'>Cambiar foto de Portada</label>
@@ -247,10 +246,7 @@ function Edit() {
                             onChange={onUploadPortal}
                             type = 'file' 
                             name = 'imagen subida'/>
-                        <input 
-                            onClick={upLoadPortal}
-                            type = 'button' 
-                            value = 'subir imagen'/>
+                        
                     </p>
 
                     <label htmlFor = 'account'>Type Account</label>

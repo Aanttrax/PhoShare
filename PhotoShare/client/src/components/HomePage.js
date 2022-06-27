@@ -5,8 +5,9 @@ import userimagen from '../img/user.png';
 
 import firebaseApp from "../firebase/credenciales";
 import { getAuth, signOut } from "firebase/auth"
+import {doc, updateDoc, arrayUnion,arrayRemove, getFirestore} from "firebase/firestore";
 
-import alert from '../img/alert.png';
+import logo from '../img/logo.png';
 
 import deportes from '../img/depo.jpg';
 import paisajes from '../img/pai.jpg';
@@ -32,7 +33,7 @@ function HomePage({user}) {
     let usersbd = useSelector(state => state.users);
     
     const usuario_perfil = usersbd.find(element => element.email === userbd.user.email);
-
+    let otros_Users = usersbd.filter(us => us.username !== usuario_perfil.username );
     
     
     useEffect(()=>{
@@ -129,6 +130,32 @@ function HomePage({user}) {
     function ir(){
         navigate('/ver')
     }
+
+    const uid = userbd.user.uid;
+    const firestore = getFirestore(firebaseApp)
+    const[btnn, setBtn]=useState("Seguir")
+
+    const eventoSeguir=(id ,user , cont)=>{
+            if(cont=="Seguir"){
+                document.getElementById(id).textContent="Dejar de seguir"
+                const docuRef = doc(firestore, `users/${uid}`);
+                updateDoc(docuRef,{
+                seguidos: arrayUnion({ gmail: id,
+                                       nombre: user })
+                })
+            }
+            if(cont=="Dejar de seguir"){
+                document.getElementById(id).textContent="Seguir"
+                const docuRef = doc(firestore, `users/${uid}`);
+                updateDoc(docuRef,{
+                seguidos: arrayRemove({ gmail: id,
+                                        nombre: user })
+                })
+            }
+    };
+
+    
+
     return (
         <div className="home">
             <div className="principal">
@@ -148,12 +175,12 @@ function HomePage({user}) {
                     <input className="search" 
                             type= 'text' 
                             name='buscar' 
-                            placeholder="Buscar" 
+                            placeholder="Buscar un nombre de usuario" 
                             onChange={escribi}>
                     </input>
                     
                 </div>
-                <img src = {alert} alt='user' width="50" height="50"/>
+                <img src = {logo} alt='user' width="100" height="100"/>
             </div>
 
             <div className="select_menu">
@@ -162,6 +189,9 @@ function HomePage({user}) {
                 </div>
                 {show === 'true'?
                 <ul className="options">
+                    <li className="option" onClick={perfil}>
+                        <span className="option_text">Perfil</span>
+                    </li>
                     <li className="option" onClick={edit}>
                         <span className="option_text">Editar Perfil</span>
                     </li>
@@ -200,19 +230,21 @@ function HomePage({user}) {
 
             {visible === 2? 
             <div className="container_search">
-                    {Array.isArray(usersbd) && usersbd.map((c,i)=>(
-                        
+                    {Array.isArray(otros_Users) && otros_Users.map((c,i)=>(
                         <div key ={i}>
                             {exist(c.username)?
                             <>
-                            <Link className="mienbros" to = {c.email === userbd.user.email?'/Perfil':`/${c.email}`} key = {`link_${c.email}`}>
                                 <div className="usuario_result" key={c.username}>
-                                    <img src={c.Perfil.imgPerfil?c.Perfil.imgPerfil:userimagen} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
-                                    <p>{c.username}</p>  
+                                    <Link className="mienbros" to = {c.email === userbd.user.email?'/Perfil':`/${c.email}`} key = {`link_${c.email}`}>
+                                        <img src={c.Perfil.imgPerfil?c.Perfil.imgPerfil:userimagen} alt = 'imagen' className = 'imgUser' width="80" height="80"/>
+                                        <p>{c.username}</p>
+                                    </Link>
+                                    <div>
+                                        <button id={c.email} className="seguir" onClick={()=>eventoSeguir(c.email,c.username,document.getElementById(c.email).textContent)}>{btnn}</button>
+                                    </div>
                                 </div>
-                                <button className="seguir">seguir</button> 
-                            </Link>
                             </>
+                            
                             : ""}
                         </div>
                     ))}

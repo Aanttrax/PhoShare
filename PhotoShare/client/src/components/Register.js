@@ -57,7 +57,8 @@ function Register() {
             Perfil:{imgPerfil:'', imgName:''},
             Portal:{imgPortal:'', imgName:''},
             imagenes:[],
-            favoritos:[]
+            favoritos:[],
+            seguidos:{}
         });
 
     };
@@ -129,49 +130,49 @@ function Register() {
                 width="50px" height="50px"/>
             <div className="register-box">
                 <img className = 'avatar'src={logo} alt="logo"/>
-                <h2>Register!</h2>
+                <h2>Registro!</h2>
                 <form onSubmit={submitHandler}>
-                    <label htmlFor = 'username'>Username</label>
+                    <label htmlFor = 'username'>Nombre de usuario</label>
                     <input 
                         id = 'username' 
                         type = 'text' 
-                        placeholder="Enter Username"/>
+                        placeholder="ingrese nombre de usuario"/>
 
-                    <label htmlFor = 'email'>Email</label>
+                    <label htmlFor = 'email'>E-mail</label>
                     <input 
                         id = 'email'
                         type = 'text' 
-                        placeholder="Enter email"
+                        placeholder="Ingrese correo electronico"
                         onChange={validate}/>
                     <span className="alert">{message}</span>
-                    <label htmlFor = 'password'>Password</label>
+                    <label htmlFor = 'password'>Contraseña</label>
                     <input 
                         type = 'password' 
-                        placeholder="Enter Password"
+                        placeholder="Ingrese una contraseña"
                         onChange={verify}/>
                     <span className="alert">{messagePas}</span>
-                    <label htmlFor = 'confirm-password'>Confirm Password</label>
+                    <label htmlFor = 'confirm-password'>Confirmar contraseña</label>
                     <input 
                         id = 'password' 
                         type = 'password'  
-                        placeholder="Re-Enter Password"
+                        placeholder="vuelva a introducir la contraseña"
                         onChange={equal}/>
                     <span className="alert">{equalityMenssage}</span>
-                    <label htmlFor = 'sex'>Sex</label>
+                    <label htmlFor = 'sex'>Sexo</label>
                     <input 
                         id = 'sex' 
                         type = 'text' 
-                        placeholder="Enter Sex"/>
+                        placeholder="Introdusca su sexo"/>
 
-                    <label htmlFor = 'age'>Age</label>
+                    <label htmlFor = 'age'>Edad</label>
                     <input 
                         id = 'age' 
                         type = 'text' 
-                        placeholder="Enter Age"/>
+                        placeholder="Introdusca su edad"/>
                        
-                       <input type = 'submit'  value='Register' onClick={()=>mostrarAlerta()}/>
+                       <input type = 'submit'  value='Registrarse' onClick={()=>mostrarAlerta()}/>
                           <Link to = '/login' className="a">
-                        Back to sign in
+                        Volver a inicio de sesion
                         </Link>
                 </form>      
             </div>
