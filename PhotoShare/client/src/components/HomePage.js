@@ -135,7 +135,7 @@ function HomePage({user}) {
     const firestore = getFirestore(firebaseApp)
     const[btnn, setBtn]=useState("Seguir")
 
-    const eventoSeguir=(id ,user , cont)=>{
+    const eventoSeguir=(id ,user, cont)=>{
             if(cont=="Seguir"){
                 document.getElementById(id).textContent="Dejar de seguir"
                 const docuRef = doc(firestore, `users/${uid}`);
@@ -240,7 +240,10 @@ function HomePage({user}) {
                                         <p>{c.username}</p>
                                     </Link>
                                     <div>
-                                        <button id={c.email} className="seguir" onClick={()=>eventoSeguir(c.email,c.username,document.getElementById(c.email).textContent)}>{btnn}</button>
+                                        <button 
+                                            id={c.email} 
+                                            className="seguir" 
+                                            onClick={()=>eventoSeguir(c.email,c.username,document.getElementById(c.email).textContent)}>{btnn}</button>
                                     </div>
                                 </div>
                             </>

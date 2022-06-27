@@ -29,7 +29,8 @@ function Perfil(){
 
     const [isOpenModal, openModal, closeModal]= useModal();
     const [suprimido, setSuprimido] = useState(true);
-    const [seccion,setSeccion] = useState(false)
+    const [seccion,setSeccion] = useState(false);
+    
     let { email } = useParams();
     
 
@@ -50,6 +51,7 @@ function Perfil(){
     
         
     if(email === undefined || email === userbd.user.email) {
+        
     }else {
         usuario_perfil = usersbd.find(element => element.email === email)
     }
@@ -62,7 +64,8 @@ function Perfil(){
                 openModal()
             break;
             case 'seguidos':
-                mostrar_seguidos()
+                setSeccion(!seccion)
+                setMostrarSeuidos(!mostrarSeguidos)
             break;
             case 'Favoritos':
                 setSeccion(!seccion)
@@ -119,16 +122,8 @@ function Perfil(){
         setSuprimido(!suprimido);
     }
 
-    const[mostrarSeguidos,setMostrarSeuidos] = useState(1)
+    const[mostrarSeguidos,setMostrarSeuidos] = useState(false)
     let seguidos = usuario_perfil.seguidos;
-
-    function mostrar_seguidos(){
-        setMostrarSeuidos(2)
-    }
-
-    function volver(){
-        setMostrarSeuidos(1)
-    }
 
 
     return (
@@ -154,7 +149,7 @@ function Perfil(){
                     </div>
                 </div>
                 <div className="btn_perfil">
-                    {Array.isArray(btn) && btn.map((c,i)=>(
+                    {Array.isArray(btn) && btn.map((c,i)=>( c.name !== 'Subir'?
                         <div key={i} onClick = {select} id = {c.name}>
                             <img
                                 className="img_perfil" 
@@ -162,19 +157,24 @@ function Perfil(){
                                 alt= {c.name}/>
                             <p>{c.name}</p>
                         </div>
+                        :email === undefined || email === userbd.user.email?
+                        <div key={i} onClick = {select} id = {c.name}>
+                            <img
+                                className="img_perfil" 
+                                src = {c.img}
+                                alt= {c.name}/>
+                            <p>{c.name}</p>
+                        </div>:''
                     ))}
                 </div>
             </header>
             <div className="contenido">
-                {mostrarSeguidos === 2? 
+                {mostrarSeguidos? 
                 <div className="contenedor_seguidores">
                     <h2>Seguidos:</h2>
-                    <div className="atra_seguidores">
-                        <button className="boton_atras" onClick={volver}>atras</button>
-                    </div>
                     <div className="lista_seguidores">
-                        {Array.isArray(seguidos) && seguidos.map((c,i)=>(
-                            <div key={i} className = 'seguidos'>
+                        {Array.isArray(seguidos) && seguidos.map((c,i)=>( 
+                            <div key={i} className = 'seguidos'>   
                                 <div>{c.nombre}</div>
                             </div>
                         ))}
