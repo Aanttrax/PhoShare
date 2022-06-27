@@ -6,7 +6,6 @@ import {useSelector } from 'react-redux';
 import dowload from '../img/Descargar.png';
 import favorites from '../img/Favorito.png';
 import coment from '../img/Comentario.png';
-import image from '../img/imagen.png';
 import hom from '../img/Home.png';
 //cosas importadas de otros componentes
 import {defini, imgurl} from './HomePage.js'
@@ -33,9 +32,7 @@ function Ver(){
     let img_verify = usuario_perfil.favoritos.find(element => element.imag === imgurl);
 
 
-    let btn = [{name : 'Imagen', 
-               img : `${image}`},
-               {name : 'Descargar', 
+    let btn = [{name : 'Descargar', 
                img : `${dowload}`}, 
                {name : 'Añadir', 
                img : `${favorites}`}, 

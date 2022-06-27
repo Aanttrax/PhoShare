@@ -62,27 +62,27 @@ function Login() {
         <div className="body">
             <div className="login-box">
                 <img className = 'avatar'src={logo} alt="logo"/>
-                <h2>Login Here!</h2>
+                <h2>Entre aquí!</h2>
                 <form onSubmit={submitHandler}>
                     <label htmlFor = 'username'>E-mail</label>
                     <input 
                         id="mail" 
                         type = 'text' 
-                        placeholder="Enter Username"
+                        placeholder="Ingrese su correo electronico"
                         onChange={verify}/>
                     <span className="alert">{message}</span>
-                    <label htmlFor = 'password'>Password</label>
+                    <label htmlFor = 'password'>Contraseña</label>
                     <input 
                         id="pass" 
                         type = 'password' 
-                        placeholder="Enter Password"/>
+                        placeholder="Ingrese su contraseña"/>
 
-                    <input type = 'submit' value='Log in'/>
+                    <input type = 'submit' value='Ingresar'/>
                     <Link to = '/recovery' className="a">
-                        Lost your Password
+                        olvido su contraseña?
                     </Link><br/>
                     <Link to = '/register' className="a">
-                        Dont have account?
+                        aun no tiene cuenta?
                     </Link>
                 </form>
             </div>
