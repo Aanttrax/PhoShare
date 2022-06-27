@@ -29,7 +29,7 @@ function Perfil(){
 
     const [isOpenModal, openModal, closeModal]= useModal();
     const [suprimido, setSuprimido] = useState(true);
-    const [seccion,setSeccion] = useState(false);
+    const [seccion,setSeccion] = useState(1);
     
     let { email } = useParams();
     
@@ -64,11 +64,18 @@ function Perfil(){
                 openModal()
             break;
             case 'seguidos':
-                setSeccion(!seccion)
-                setMostrarSeuidos(!mostrarSeguidos)
+                if(seccion === 1 || seccion === 2){
+                    setSeccion(3)
+                }else{
+                    setSeccion(1)
+                }
             break;
             case 'Favoritos':
-                setSeccion(!seccion)
+                if(seccion === 2){
+                    setSeccion(1)
+                }else{
+                    setSeccion(2)
+                }
             break;
             default:
             break;
@@ -121,8 +128,6 @@ function Perfil(){
     function refresh (){
         setSuprimido(!suprimido);
     }
-
-    const[mostrarSeguidos,setMostrarSeuidos] = useState(false)
     let seguidos = usuario_perfil.seguidos;
 
 
@@ -169,7 +174,7 @@ function Perfil(){
                 </div>
             </header>
             <div className="contenido">
-                {mostrarSeguidos? 
+                {seccion === 3? 
                 <div className="contenedor_seguidores">
                     <h2>Seguidos:</h2>
                     <div className="lista_seguidores">
@@ -182,7 +187,7 @@ function Perfil(){
                 </div>
                 : ""}
 
-                {seccion?
+                {seccion===2?
                 <div>
                     {Array.isArray(usuario_perfil.favoritos) && usuario_perfil.favoritos.map((c,i)=>(
                     <div key={i} className = 'imagenes_perfil'>
@@ -197,7 +202,7 @@ function Perfil(){
                 ))}
                 </div>
                 
-                :
+                :seccion===1?
                 <div>
                     <Subir 
                     isOpen={isOpenModal}
@@ -222,9 +227,9 @@ function Perfil(){
                         :''}
                         
                     </div>
-                ))}    
-                
-                </div>}
+                ))} 
+                </div>
+                :''   }
                 
 
             </div>
