@@ -188,7 +188,7 @@ function Perfil(){
                 : ""}
 
                 {seccion===2?
-                <div>
+                <div className="contenido">
                     {Array.isArray(usuario_perfil.favoritos) && usuario_perfil.favoritos.map((c,i)=>(
                     <div key={i} className = 'imagenes_perfil'>
                         <div className="roll_img">
@@ -203,7 +203,7 @@ function Perfil(){
                 </div>
                 
                 :seccion===1?
-                <div>
+                <div className="contenido">
                     <Subir 
                     isOpen={isOpenModal}
                     closeModal={closeModal}
