@@ -1,27 +1,37 @@
 import './Ver.css'
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import {useSelector } from 'react-redux';
 //Imagenes
 import dowload from '../img/Descargar.png';
 import favorites from '../img/Favorito.png';
 import coment from '../img/Comentario.png';
 import image from '../img/imagen.png';
 import hom from '../img/Home.png';
-import paisajes from '../img/pai.jpg';
 //cosas importadas de otros componentes
 import {defini, imgurl} from './HomePage.js'
 //firebase
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import firebaseApp from "../firebase/credenciales";
+import { getFirestore, doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { async } from '@firebase/util';
 //axios
 import axios from 'axios'
-import fileDownload from 'js-file-download'
+// import fileDownload from 'js-file-download'
 
-
+const firestore = getFirestore(firebaseApp);
+const storage = getStorage(firebaseApp);
 
 function Ver(){
     const navigate = useNavigate();
+
+    let usersbd = useSelector(state => state.users);
+    let userbd = useSelector(state => state.user);
+    const uid = userbd.user.uid;
+
+    let usuario_perfil = usersbd.find(element => element.email === userbd.user.email);
+    let img_verify = usuario_perfil.favoritos.find(element => element.imag === imgurl);
+    console.log(img_verify,'aquiiiii')
 
     let btn = [{name : 'Imagen', 
                img : `${image}`},
@@ -34,18 +44,19 @@ function Ver(){
                {name : 'volver', 
                img : `${hom}`}
                ];
-               const handleClick = (url, filename) => {
-                axios.get(url, {
-                  responseType: 'blob',
-                })
-                .then((res) => {
-                  fileDownload(res.data, filename)
-                })
-            }
-         function descargar(){
+
+    const handleClick = (url, filename) => {
+        axios.get(url, {
+            responseType: 'blob',
+        })
+        .then((res) => {
+            //fileDownload(res.data, filename)
+        })
+    };
+
+    function descargar(){
       
             // Create a reference to the file we want to download
-            const storage = getStorage();
             const starsRef = ref(storage, imgurl);
 
             // Get the download URL
@@ -75,6 +86,10 @@ function Ver(){
                     console.log(error.code);
                     // Unknown error occurred, inspect the server response
                  break;
+
+                 default:
+
+                 break;
              }
             });
 
@@ -102,19 +117,36 @@ function Ver(){
     function select(e) {
         
         const seleccion = e.target.alt;
-        console.log(seleccion,'**************')
         switch(seleccion){
             case 'volver':
                 navigate('/home')
+                break;
             case 'Comentarios':
                 setEstado(1)
+                break;
             case 'Descargar':
                 handleClick(imgurl,defini)
-                
+                break;
+            case 'Añadir':
+                addFavorite(imgurl,defini)
+                break;
+            default:
+                break;
         }
     }
 
+    function addFavorite(imgurl,defini){
+
+        const docuRef = doc(firestore, `users/${uid}`);
+
+              updateDoc(docuRef,{
+                favoritos: arrayUnion({imag:imgurl,
+                                      nameimg:defini})
+              })
+    };
+
     const[estado, setEstado] = useState(0);
+
     function cerrar(){
         setEstado(0);
     }
@@ -140,7 +172,8 @@ function Ver(){
             <div className="cabecera">
                 {estado === 0? 
                     <div className="btn_ver">
-                        {Array.isArray(btn) && btn.map((c,i)=>(
+                        {Array.isArray(btn) && btn.map((c,i)=>( c.name !== 'Añadir'?
+                        
                                 <div key={i} onClick={select} id = {c.name}>
                                     <img
                                         className="icon_ver" 
@@ -148,7 +181,17 @@ function Ver(){
                                         alt= {c.name}/>
                                     <p>{c.name}</p>
                                 </div>
-                        ))}
+                        :img_verify?''
+                        :
+                        <div key={i} onClick={select} id = {c.name}>
+                                    <img
+                                        className="icon_ver" 
+                                        src = {c.img}
+                                        alt= {c.name}/>
+                                    <p>{c.name}</p>
+                                </div>
+                        )
+                        )}
                     </div>
                 : ""}
 

@@ -29,7 +29,7 @@ function Perfil(){
 
     const [isOpenModal, openModal, closeModal]= useModal();
     const [suprimido, setSuprimido] = useState(true);
-
+    const [seccion,setSeccion] = useState(false)
     let { email } = useParams();
     
 
@@ -60,6 +60,10 @@ function Perfil(){
         switch(seleccion){
             case 'Subir':
                 openModal()
+            break;
+            case 'Favoritos':
+                setSeccion(!seccion)
+            break;
         }
     }
 
@@ -144,7 +148,24 @@ function Perfil(){
                 </div>
             </header>
             <div className="contenido">
-                <Subir 
+                {seccion?
+                <div>
+                    {Array.isArray(usuario_perfil.favoritos) && usuario_perfil.favoritos.map((c,i)=>(
+                    <div key={i} className = 'imagenes_perfil'>
+                        <div className="roll_img">
+                            <img
+                                className="imagenes_show"
+                                src = {c.imag}
+                                alt= {c.nameimg}/>
+                        </div>
+                        
+                    </div>
+                ))}
+                </div>
+                
+                :
+                <div>
+                    <Subir 
                     isOpen={isOpenModal}
                     closeModal={closeModal}
                     refresh={refresh}/>
@@ -167,7 +188,10 @@ function Perfil(){
                         :''}
                         
                     </div>
-                ))}
+                ))}    
+                
+                </div>}
+                
 
             </div>
         </div>
