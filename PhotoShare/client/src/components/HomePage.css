@@ -140,7 +140,7 @@ body{
     
 }
 
-.mienbros:hover{
+.usuario_result:hover{
     background-color: rgba(243, 174, 90, 0.5);
 }
 
@@ -148,7 +148,9 @@ body{
     display: flex;
     font-size: 20px;
     margin-left: 20px;
-    
+    margin-right: 20px;
+    justify-content: space-between;
+    transition: all 0.25s;
 }
 
 .usuario_result p {
@@ -161,7 +163,7 @@ body{
     border-radius: 10px;
     float:right;
     padding: 10px;
-    margin-left: 100px;
+    margin-right: 100px;
     margin-top: 48px;
 }
 

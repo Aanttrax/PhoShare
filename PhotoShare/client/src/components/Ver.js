@@ -16,7 +16,7 @@ import { getFirestore, doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { async } from '@firebase/util';
 //axios
 import axios from 'axios'
-// import fileDownload from 'js-file-download'
+import fileDownload from 'js-file-download'
 
 const firestore = getFirestore(firebaseApp);
 const storage = getStorage(firebaseApp);
@@ -47,7 +47,7 @@ function Ver(){
             responseType: 'blob',
         })
         .then((res) => {
-            //fileDownload(res.data, filename)
+            fileDownload(res.data, filename)
         })
     };
 

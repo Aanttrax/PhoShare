@@ -29,7 +29,8 @@ function Perfil(){
 
     const [isOpenModal, openModal, closeModal]= useModal();
     const [suprimido, setSuprimido] = useState(true);
-    const [seccion,setSeccion] = useState(false)
+    const [seccion,setSeccion] = useState(1);
+    
     let { email } = useParams();
     
 
@@ -50,6 +51,7 @@ function Perfil(){
     
         
     if(email === undefined || email === userbd.user.email) {
+        
     }else {
         usuario_perfil = usersbd.find(element => element.email === email)
     }
@@ -62,10 +64,18 @@ function Perfil(){
                 openModal()
             break;
             case 'seguidos':
-                mostrar_seguidos()
+                if(seccion === 1 || seccion === 2){
+                    setSeccion(3)
+                }else{
+                    setSeccion(1)
+                }
             break;
             case 'Favoritos':
-                setSeccion(!seccion)
+                if(seccion === 2){
+                    setSeccion(1)
+                }else{
+                    setSeccion(2)
+                }
             break;
             default:
             break;
@@ -118,17 +128,7 @@ function Perfil(){
     function refresh (){
         setSuprimido(!suprimido);
     }
-
-    const[mostrarSeguidos,setMostrarSeuidos] = useState(1)
     let seguidos = usuario_perfil.seguidos;
-
-    function mostrar_seguidos(){
-        setMostrarSeuidos(2)
-    }
-
-    function volver(){
-        setMostrarSeuidos(1)
-    }
 
 
     return (
@@ -154,7 +154,7 @@ function Perfil(){
                     </div>
                 </div>
                 <div className="btn_perfil">
-                    {Array.isArray(btn) && btn.map((c,i)=>(
+                    {Array.isArray(btn) && btn.map((c,i)=>( c.name !== 'Subir'?
                         <div key={i} onClick = {select} id = {c.name}>
                             <img
                                 className="img_perfil" 
@@ -162,19 +162,24 @@ function Perfil(){
                                 alt= {c.name}/>
                             <p>{c.name}</p>
                         </div>
+                        :email === undefined || email === userbd.user.email?
+                        <div key={i} onClick = {select} id = {c.name}>
+                            <img
+                                className="img_perfil" 
+                                src = {c.img}
+                                alt= {c.name}/>
+                            <p>{c.name}</p>
+                        </div>:''
                     ))}
                 </div>
             </header>
             <div className="contenido">
-                {mostrarSeguidos === 2? 
+                {seccion === 3? 
                 <div className="contenedor_seguidores">
                     <h2>Seguidos:</h2>
-                    <div className="atra_seguidores">
-                        <button className="boton_atras" onClick={volver}>atras</button>
-                    </div>
                     <div className="lista_seguidores">
-                        {Array.isArray(seguidos) && seguidos.map((c,i)=>(
-                            <div key={i} className = 'seguidos'>
+                        {Array.isArray(seguidos) && seguidos.map((c,i)=>( 
+                            <div key={i} className = 'seguidos'>   
                                 <div>{c.nombre}</div>
                             </div>
                         ))}
@@ -182,8 +187,8 @@ function Perfil(){
                 </div>
                 : ""}
 
-                {seccion?
-                <div>
+                {seccion===2?
+                <div className="contenido">
                     {Array.isArray(usuario_perfil.favoritos) && usuario_perfil.favoritos.map((c,i)=>(
                     <div key={i} className = 'imagenes_perfil'>
                         <div className="roll_img">
@@ -197,8 +202,8 @@ function Perfil(){
                 ))}
                 </div>
                 
-                :
-                <div>
+                :seccion===1?
+                <div className="contenido">
                     <Subir 
                     isOpen={isOpenModal}
                     closeModal={closeModal}
@@ -222,9 +227,9 @@ function Perfil(){
                         :''}
                         
                     </div>
-                ))}    
-                
-                </div>}
+                ))} 
+                </div>
+                :''   }
                 
 
             </div>
