@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from 'react-redux';
 import firebaseApp from "../firebase/credenciales";
 import './Subir.css'
+import swal from 'sweetalert';
 
 
 import { getFirestore, doc, updateDoc, arrayUnion } from 'firebase/firestore';
@@ -46,7 +47,11 @@ function Subir({isOpen, closeModal, refresh}){
     }
 
     function upLoadImagen() {
-
+        swal({
+            title: "Imagen subida con exito",
+            icon: "success",
+            button: "aceptar"
+    })
         const uploadTask = uploadBytesResumable(storageRefImagen, fileImagen)
 
           uploadTask.on('state_changed', 
